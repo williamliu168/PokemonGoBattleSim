@@ -61,14 +61,101 @@ class Pokemon
 
     }
     
-    public function fight() {
+    public function fight($tick) {
+        $dump = "";
+
         $damage = new Damage();
+        if ($this->action=='standby'){
+            if($this->fury+$this->ss->furyCost>=0) // have enough fury for special move_uploaded_file
+            {
+                $dump.='[pokemon] '.$this->name.' start '.$this->ss->nameWithStab().'<BR>';
+                $this->action='ss';
+                $this->action_progress=0.0;
+            }
+            else
+            {
+                $dump.='[pokemon] '.$this->name.' start '.$this->qm->nameWithStab().'<BR>';
+                $this->action='qm';
+                $this->action_progress=0.0;
+            }
+        }
+        elseif ($this->action=='qm')
+        {
+            if ($this->action_progress>=$this->qm->duration){
+                // qm done
+                $damage = new Damage($this->cAtk,$this->qm->power,$this->qm->type,0.0,$this->qm->stab);
+                $oldFury = $this->fury;
+                $this->fury=min($this->fury+$this->qm->furyGain,100);
+                $dump.='[pokemon] '.$this->name.' performed '.$this->qm->nameWithStab().'<BR>';
+                
+                $this->action='standby';
+                $this->action_progress=0.0;
+            }
+            else{
+                $this->action_progress+=$tick;
+            }
+        }
+        elseif ($this->action=='ss')
+        {
+            if ($this->action_progress>=$this->ss->duration){
+                // ss done
+                $damage = new Damage($this->cAtk,$this->ss->power,$this->ss->type,$this->ss->critChance,$this->ss->stab);
+                $oldFury = $this->fury;
+                $this->fury=$this->fury+$this->ss->furyCost;    // ss->furyCost is -ve
+                if ($this->fury<0){
+                    $dump.='[pokemon] [ERROR] Negative fury. '.$this->name.' performed '
+                        .$this->ss->nameWithStab.' fury '.$oldFury.'->'.$this->fury.'<BR>';
+                }
+                
+                $this->action='standby';
+                $this->action_progress=0.0;
+            }
+            else
+            {
+                $this->action_progress+=$tick;
+            }
+        }
         
-        
-        
-        return $damage;
+        return array($damage,$dump);
     }
     
+    public function takeDamage($damage)
+    {
+        $dump='';
+        
+        $stab = 1.25;       // same type attack bonus
+        $dM = 0.5;          // damage multiplier
+        $this->crit = 1.5;  // assumption
+        
+        // critM = $this->getCritMultiplier($damage);
+        // typeM = $this->getTypeMultiplier($damage);
+        
+        $atk = $damage->atk;
+        $power = $damage->power;
+        if ($damage->stab == TRUE){
+            $stabM = $stab;
+        }
+        else {
+            $stabM = 1.0;
+        }
+        
+        $hpLoss = (int)floor( $dM*($atk/$this->cDef)*$power/*$stabM*$typeM*/+1.0);
+        
+        $dump.='[pokemon] '.$this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']<BR>';
+        
+        $this->hp-=$hpLoss;
+        // todo - fury gain with hp loss
+        
+        $this->checkDeath();
+        return $dump;
+    }
+    
+    private function checkDeath(){
+        if ($this->hp<=0){
+            $this->state='dead';
+            $this->fury=0;
+        }
+    }
     
     public function heal(){
         $this->hp = $this->maxHp;

@@ -14,7 +14,7 @@ class Qm
     }
     
     public function nameWithStab(){
-        $dump=$this->name;
+        $dump=ucfirst($this->name);
         if($this->stab){
             $dump.='+';
         }
