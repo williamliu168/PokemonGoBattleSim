@@ -9,7 +9,7 @@ class Data
     public $skill_ss;
     public $cpm;
 
-    public function init() {
+    public function __construct() {
         echo "[data] init()<BR>";
     }
     
@@ -25,7 +25,7 @@ class Data
     public function getBasicData($id){
         foreach($this->pokemon_stats as $dict){
             if ($dict['id']==$id) {
-                return ($dict['name'],$dict['type1'],$dict['type2'],$dict['atk'],$dict['def'],$dict['sta']);
+                return array($dict['name'],$dict['type1'],$dict['type2'],$dict['atk'],$dict['def'],$dict['sta']);
             }
         }
     }
@@ -39,13 +39,13 @@ class Data
 
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 $dict = array();
-                $dict['id']     =strtolower($data[array_search('id',$header)]);
-                $dict['name']   =strtolower($data[array_search('name',$header)]);
-                $dict['sta']    =strtolower($data[array_search('sta',$header)]);
-                $dict['atk']    =strtolower($data[array_search('atk',$header)]);
-                $dict['def']    =strtolower($data[array_search('def',$header)]);
-                $dict['type1']  =strtolower($data[array_search('type1',$header)]);
-                $dict['type2']  =strtolower($data[array_search('type2',$header)]);
+                $dict['id']     = (int)$data[array_search('id',$header)];
+                $dict['name']   = strtolower($data[array_search('name',$header)]);
+                $dict['sta']    = strtolower($data[array_search('sta',$header)]);
+                $dict['atk']    = strtolower($data[array_search('atk',$header)]);
+                $dict['def']    = strtolower($data[array_search('def',$header)]);
+                $dict['type1']  = strtolower($data[array_search('type1',$header)]);
+                $dict['type2']  = strtolower($data[array_search('type2',$header)]);
                 
                 array_push($result,$dict);
             }
