@@ -141,9 +141,8 @@ class Pokemon
         
         $hpLoss = (int)floor( $dM*($atk/$this->cDef)*$power/*$stabM*$typeM*/+1.0);
         
-        $dump.='[pokemon] '.$this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']<BR>';
-        
         $this->hp-=$hpLoss;
+        $dump.='[pokemon] '.$this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']<BR>';
         // todo - fury gain with hp loss
         
         $this->checkDeath();
