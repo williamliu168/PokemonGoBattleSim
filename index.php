@@ -9,9 +9,9 @@
     
     $host = new Host();
 
-    $pikachu = new Pokemon($host->data,25,"thunder shock","thunderbolt", 20);
+    $pikachu = new Pokemon($host->data,25,"thunder shock","thunderbolt", 80);
     
-    $charmander = new Pokemon($host->data,4,"ember","flame burst", 20);
+    $charmander = new Pokemon($host->data,4,"ember","flame burst", 44);
 
 ?>
 </p>

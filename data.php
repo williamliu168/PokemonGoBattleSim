@@ -30,6 +30,27 @@ class Data
         }
     }
     
+    public function getQmData($name){
+        foreach($this->skill_qm as $dict){
+            if ($dict['name']==$name){
+                return array($dict['id'],$dict['type'],$dict['power'],$dict['duration'],$dict['furyGain'],$dict['damageWindow'],);
+            }
+        }
+    }
+    
+    public function getSsData($name){
+        foreach($this->skill_ss as $dict){
+            if ($dict['name']==$name){
+                return array($dict['id'],$dict['type'],$dict['power'],$dict['accuracy'],
+                $dict['critChance'],$dict['duration'],$dict['furyCost'],$dict['damageWindow']);
+            }
+        }
+    }
+    
+    public function get_cpm($level){
+        return $this->cpm[$level];
+    }
+    
     public function read_pokemon_stats() {
         echo "[data] reading data: pokemon stats<BR>";
 
@@ -41,9 +62,9 @@ class Data
                 $dict = array();
                 $dict['id']     = (int)$data[array_search('id',$header)];
                 $dict['name']   = strtolower($data[array_search('name',$header)]);
-                $dict['sta']    = strtolower($data[array_search('sta',$header)]);
-                $dict['atk']    = strtolower($data[array_search('atk',$header)]);
-                $dict['def']    = strtolower($data[array_search('def',$header)]);
+                $dict['sta']    = (int)($data[array_search('sta',$header)]);
+                $dict['atk']    = (int)($data[array_search('atk',$header)]);
+                $dict['def']    = (int)($data[array_search('def',$header)]);
                 $dict['type1']  = strtolower($data[array_search('type1',$header)]);
                 $dict['type2']  = strtolower($data[array_search('type2',$header)]);
                 
@@ -64,7 +85,7 @@ class Data
             
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 $dict = array();
-                $dict['id']     = strtolower($data[array_search('id',$header)]);
+                $dict['id']     = (int)($data[array_search('id',$header)]);
                 $dict['name']   = strtolower($data[array_search('name',$header)]);
                 $q1 = strtolower($data[array_search('q1',$header)]);
                 $q2 = strtolower($data[array_search('q2',$header)]);
@@ -102,7 +123,7 @@ class Data
                 
                 foreach($header as $defType){
                     // echo $data[0]."->".$defType."=".$data[array_search($defType,$header)]."<BR>";
-                    $dict[$defType] = strtolower($data[array_search($defType,$header)]);
+                    $dict[$defType] = (float)($data[array_search($defType,$header)]);
                 }
 
                 $result[$data[0]]=$dict;
@@ -122,13 +143,13 @@ class Data
 
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 $dict = array();
-                $dict['id']     = strtolower($data[array_search('id',$header)]);
+                $dict['id']     = (int)($data[array_search('id',$header)]);
                 $dict['type']   = strtolower($data[array_search('type',$header)]);
                 $dict['name']   = strtolower($data[array_search('name',$header)]);
-                $dict['power']  = strtolower($data[array_search('power',$header)]);
-                $dict['duration']   = strtolower($data[array_search('duration',$header)]);
-                $dict['furyGain']   = strtolower($data[array_search('fury_gain',$header)]);
-                $dict['damageWindow']   = strtolower($data[array_search('dmg_window',$header)]);
+                $dict['power']  = (int)($data[array_search('power',$header)]);
+                $dict['duration']   = (int)($data[array_search('duration',$header)]);
+                $dict['furyGain']   = (int)($data[array_search('fury_gain',$header)]);
+                $dict['damageWindow']   = (int)($data[array_search('dmg_window',$header)]);
 
                 array_push($result,$dict);
             }
@@ -147,15 +168,15 @@ class Data
 
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
                 $dict = array();
-                $dict['id']     = strtolower($data[array_search('id',$header)]);
+                $dict['id']     = (int)($data[array_search('id',$header)]);
                 $dict['type']   = strtolower($data[array_search('type',$header)]);
                 $dict['name']   = strtolower($data[array_search('name',$header)]);
-                $dict['power']  = strtolower($data[array_search('power',$header)]);
-                $dict['accuracy']   = strtolower($data[array_search('accuracy',$header)]);
-                $dict['critChance'] = strtolower($data[array_search('critChance',$header)]);
-                $dict['duration']   = strtolower($data[array_search('duration',$header)]);
-                $dict['furyCost']   = strtolower($data[array_search('fury_cost',$header)]);
-                $dict['damageWindow']   = strtolower($data[array_search('dmg_window',$header)]);
+                $dict['power']  = (int)($data[array_search('power',$header)]);
+                $dict['accuracy']   = (float)($data[array_search('accuracy',$header)]);
+                $dict['critChance'] = (float)($data[array_search('critChance',$header)]);
+                $dict['duration']   = (int)($data[array_search('duration',$header)]);
+                $dict['furyCost']   = (int)($data[array_search('fury_cost',$header)]);
+                $dict['damageWindow']   = (int)($data[array_search('dmg_window',$header)]);
                 array_push($result,$dict);
             }
             fclose($handle);
@@ -173,7 +194,7 @@ class Data
 
             $i=1;
             while (($data = fgetcsv($handle, ",")) !== FALSE) {
-                $result[$i]=$data[array_search('cpm',$header)];
+                $result[$i]=(float)$data[array_search('cpm',$header)];
                 $i+=1;
             }
             fclose($handle);
