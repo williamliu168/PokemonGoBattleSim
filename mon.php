@@ -1,6 +1,7 @@
 <?php
 include 'Qm.php';
 include 'Ss.php';
+include 'Damage.php';
 
 class Pokemon
 {
@@ -23,7 +24,7 @@ class Pokemon
         
         $this->qm = new Qm($this->data,$qm);
         $this->ss = new Ss($this->data,$ss);
-        // set stab
+        $this->setStab();
         
         $this->level = $level;
         
@@ -57,10 +58,42 @@ class Pokemon
         $this->win = array();
         $this->loss = array();
         $this->draw = array();
+
+    }
+    
+    public function fight() {
+        $damage = new Damage();
+        
+        
+        
+        return $damage;
+    }
+    
+    
+    public function heal(){
+        $this->hp = $this->maxHp;
+        $this->fury = 0;
+        $this->action = 'standby';
+        $this->action_progress = 0.0;
+        $this->state = 'alive';
     }
     
     private function getBasicData(){
         list($this->name,$this->type1,$this->type2,$this->bAtk,$this->bDef,$this->bSta)= $this->data->getBasicData($this->id);
+    }
+    
+    private function setStab(){
+        if ($this->qm->type==$this->type1 or $this->qm->type==$this->type2){
+            $this->qm->stab = True;
+        }
+        if ($this->ss->type==$this->type1 or $this->ss->type==$this->type2){
+            $this->ss->stab = True;
+        }
+    }
+    
+    public function dump() {
+        $dump = ucfirst($this->name).'['.$this->qm->nameWithStab().'|'.$this->ss->nameWithStab().']';
+        return $dump;
     }
 }
 ?>

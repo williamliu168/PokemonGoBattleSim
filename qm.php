@@ -12,4 +12,18 @@ class Qm
         list($this->id,$this->type,$this->power,$this->duration,$this->furyGain,$this->damageWindow)=$this->data->getQmData($this->name);
 
     }
+    
+    public function nameWithStab(){
+        $dump=$this->name;
+        if($this->stab){
+            $dump.='+';
+        }
+        return $dump;
+    }
+    
+    public function dump(){
+        $dump=$this->nameWithStab();
+        $dump.=" power=".$this->power.",duration=".$this->duration."ms, fury gain=+".$this->furyGain;
+        return $dump;
+    }
 }

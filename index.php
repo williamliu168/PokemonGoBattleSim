@@ -13,6 +13,7 @@
     
     $charmander = new Pokemon($host->data,4,"ember","flame burst", 44);
 
+    $host->arena->oneVsOne($pikachu,$charmander);
 ?>
 </p>
 

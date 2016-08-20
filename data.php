@@ -173,7 +173,7 @@ class Data
                 $dict['name']   = strtolower($data[array_search('name',$header)]);
                 $dict['power']  = (int)($data[array_search('power',$header)]);
                 $dict['accuracy']   = (float)($data[array_search('accuracy',$header)]);
-                $dict['critChance'] = (float)($data[array_search('critChance',$header)]);
+                $dict['critChance'] = (float)($data[array_search('crit%',$header)]);
                 $dict['duration']   = (int)($data[array_search('duration',$header)]);
                 $dict['furyCost']   = (int)($data[array_search('fury_cost',$header)]);
                 $dict['damageWindow']   = (int)($data[array_search('dmg_window',$header)]);
