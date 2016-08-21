@@ -1,7 +1,7 @@
 <?php
-include 'Qm.php';
-include 'Ss.php';
-include 'Damage.php';
+include 'qm.php';
+include 'ss.php';
+include 'damage.php';
 
 class Pokemon
 {
@@ -40,7 +40,7 @@ class Pokemon
         
         $this->maxHp = (int)max(10,floor($this->cSta));
         echo "hp: ".$this->maxHp." ";
-        $this->cp=(int)max(10, floor(($this->cAtk)*($this->cDef)**(0.5)*($this->cSta)**(0.5)/10.0));
+        $this->cp=(int)max(10, floor(($this->cAtk)*sqrt($this->cDef)*sqrt($this->cSta)/10.0));
         echo "cp: ".$this->cp." ";
         
         echo "<BR>";

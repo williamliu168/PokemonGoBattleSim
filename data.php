@@ -89,7 +89,7 @@ class Data
                 $dict['name']   = strtolower($data[array_search('name',$header)]);
                 $q1 = strtolower($data[array_search('q1',$header)]);
                 $q2 = strtolower($data[array_search('q2',$header)]);
-                $dict['qm'] = array_filter(array($q1,$q2), function($value) {return $value!=='';});
+                $dict['qm'] = array_filter(array($q1,$q2), create_function('$value','return $value!=="";'));
                 
                 $s1 = strtolower($data[array_search('s1',$header)]);
                 $s2 = strtolower($data[array_search('s2',$header)]);
@@ -101,7 +101,7 @@ class Data
                 $s8 = strtolower($data[array_search('s8',$header)]);
                 $s9 = strtolower($data[array_search('s9',$header)]);
                 
-                $dict['ss'] = array_filter(array($s1,$s2,$s3,$s4,$s5,$s6,$s7,$s8,$s9), function($value) {return $value!=='';});
+                $dict['ss'] = array_filter(array($s1,$s2,$s3,$s4,$s5,$s6,$s7,$s8,$s9), create_function('$value','return $value!=="";'));
                 
                 array_push($result,$dict);
             }
