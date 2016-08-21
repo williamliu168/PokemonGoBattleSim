@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html>
+
+<?php
+    $cwd=getcwd();
+?>
 <body>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./data/db_stats.php">db_stats</a>
+</form>
 
 <p>
 <?php
