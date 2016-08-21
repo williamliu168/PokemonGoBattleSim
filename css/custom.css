@@ -1,0 +1,12 @@
+#header {
+	height: 100px;
+	background-color: #f0f0f0
+}
+
+#header > ol li{
+	display: inline-block;
+}
+
+#header > ol {
+	margin: auto;
+}
