@@ -1,12 +1,10 @@
 ## PokemonGoBattleSim
+test url: http://pogobattlesim.coolpage.biz/test_index.php
 
 ### Table of Contents
 - [Features](#features)
 - [Todo List](#todo-list)
-- __Installation__
-  - [Requirements](#requirements)
-  - [Windows](#installation-windows)
-  - [Mac](#installation-mac)
+- [Installation](https://github.com/williamliu168/PokemonGoBattleSim/blob/dev/docs/installation.md)
 - [Dev]
   - [Abbreviations](#abbreviations)
   - [What is what](#whatiswhat)
@@ -20,21 +18,29 @@
 - [ ] One vs One(gym)
 - [ ] One vs All
 
+#### Requirements
+
+
 ### Abbreviations
-qm - quick move
-ss - speical skill
-mon - pokemon
+- qm \- quick move
+- ss \- speical skill
+- mon \- pokemon
 
 ### whatiswhat
+
 host.php
-  - "host" of the show, does everything, knows everything.
+\- "host" of the show, does everything, knows everything.
+
 data.php (done)
-  - reads all the .csv raw data
+\- reads all the .csv raw data
+
 mon.php
-  - the object of pokemon
+\- the object of pokemon
+
 qm.php
-  - the object of quick move
+\- the object of quick move
+
 ss.php
-  - the object of special move
+\- the object of special move
 
 ### FAQ
