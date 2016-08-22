@@ -4,8 +4,8 @@ test url: http://pogobattlesim.coolpage.biz/test_index.php
 ### Table of Contents
 - [Features](#features)
 - [Todo List](#todo-list)
-- [Installation](https://github.com/williamliu168/PokemonGoBattleSim/blob/dev/docs/installation.md)
-- [Dev]
+- [Installation](https://github.com/williamliu168/PokemonGoBattleSim/blob/master/docs/installation.md)
+- [Dev](#dev)
   - [Abbreviations](#abbreviations)
   - [What is what](#whatiswhat)
 - [FAQ](#faq)
@@ -18,15 +18,14 @@ test url: http://pogobattlesim.coolpage.biz/test_index.php
 - [ ] One vs One(gym)
 - [ ] One vs All
 
-#### Requirements
+### dev
 
-
-### Abbreviations
+#### Abbreviations
 - qm \- quick move
 - ss \- speical skill
 - mon \- pokemon
 
-### whatiswhat
+#### whatiswhat
 
 host.php
 \- "host" of the show, does everything, knows everything.
