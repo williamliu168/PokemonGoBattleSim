@@ -7,7 +7,7 @@ class Db
 	private $username;
 	private $password;
 	
-	public $pbo;
+	public $pdo;
 	
     public function __construct($servername,$username,$password) {
         echo "[db] init..<BR>";
@@ -19,10 +19,10 @@ class Db
     public function connect_to($dbname) {
 		echo "[db] connecting to ".$dbname."... ";
 		try {
-			$this->pbo = new PDO('mysql:host='.$this->servername.';dbname='.$dbname,$this->username,$this->password);
-			echo "[db] successful<BR>";
+			$this->pdo = new PDO('mysql:host='.$this->servername.';dbname='.$dbname,$this->username,$this->password);
+			echo "successful<BR>";
 		} catch (PDOException $e) {
-			echo "failed<BR>";
+			echo "fail<BR>";
 			echo "[db] error: " . $e->getMessage() . "<br>";
 			return;
 		}
@@ -30,10 +30,14 @@ class Db
 	
 	public function query($query) {
 		$result = array();
-		foreach($this->pbo->query($query) as $row) {
+		foreach($this->pdo->query($query) as $row) {
 			array_push($result,$row);
 		}
 		return $result;
 	}
+    
+    public function done(){
+        $pdo=null;
+    }
 }
 ?>

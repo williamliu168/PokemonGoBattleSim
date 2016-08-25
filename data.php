@@ -1,4 +1,5 @@
 <?php
+include 'db.php';
 
 class Data
 {
@@ -8,9 +9,19 @@ class Data
     public $skill_qm;
     public $skill_ss;
     public $cpm;
+    
+    public $db;
 
     public function __construct() {
-        echo "[data] init()<BR>";
+        echo "[data] building db object...<br>";
+        
+        $servername = "localhost";
+        $dbname = "pogobattlesim";
+        $username = "root";
+        $password = "";
+        
+        $this->db = new Db($servername,$username,$password);
+        $this->db->connect_to($dbname);
     }
     
     public function read_all() {
@@ -54,23 +65,19 @@ class Data
     public function read_pokemon_stats() {
         echo "[data] reading data: pokemon stats<BR>";
 
+        $query = 'select * from pokemon_stats';
+        $dbresult = $this->db->query($query);
         $result = array();
-        if (($handle = fopen("./data/pokemon_stats.csv", "r")) !== FALSE) {
-            $header = fgetcsv($handle, ",");
-
-            while (($data = fgetcsv($handle, ",")) !== FALSE) {
-                $dict = array();
-                $dict['id']     = (int)$data[array_search('id',$header)];
-                $dict['name']   = strtolower($data[array_search('name',$header)]);
-                $dict['sta']    = (int)($data[array_search('sta',$header)]);
-                $dict['atk']    = (int)($data[array_search('atk',$header)]);
-                $dict['def']    = (int)($data[array_search('def',$header)]);
-                $dict['type1']  = strtolower($data[array_search('type1',$header)]);
-                $dict['type2']  = strtolower($data[array_search('type2',$header)]);
-                
-                array_push($result,$dict);
-            }
-            fclose($handle);
+        foreach($dbresult as $row){
+            $dict = array();
+            $dict['id'] = (int)$row['id'];
+            $dict['name'] = strtolower($row['name']);
+            $dict['sta'] = (int)$row['sta'];
+            $dict['atk'] = (int)$row['atk'];
+            $dict['def'] = (int)$row['def'];
+            $dict['type1'] = strtolower($row['type1']);
+            $dict['type2'] = strtolower($row['type2'])!='none'?strtolower($row['type2']):'';
+            array_push($result,$dict);
         }
         
         $this->pokemon_stats = $result;
@@ -201,6 +208,11 @@ class Data
         }
         
         $this->cpm = $result;
+    }
+    
+    public function done() {
+        $this->db->done();
+        $this->db=null;
     }
 }
 ?>
