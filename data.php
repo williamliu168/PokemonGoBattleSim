@@ -85,6 +85,36 @@ class Data
     
     public function read_pokemon_skills() {
         echo "[data] reading data: pokemon skills<BR>";
+		
+		$query = 'select * from pokemon_skills';
+		$dbresult = $this->db->query($query);
+		$result = array();
+		foreach ($dbresult as $row){
+			$dict = array();
+			$dict['id'] = (int)$row['id'];
+			$dict['name'] = strtolower($row['name']);
+			
+			$q1 = strtolower($row['q1']);
+			$q2 = strtolower($row['q2']);
+			$dict['qm'] = array_filter(array($q1,$q2), create_function('$value','return $value!=="";'));
+			
+			$oq1 = strtolower($row['oq1']);
+			$dict['oqm'] = array_filter(array($oq1), create_function('$value','return $value!=="";'));
+			
+			$s1 = strtolower($row['s1']);
+			$s2 = strtolower($row['s2']);
+			$s3 = strtolower($row['s3']);
+			$s4 = strtolower($row['s4']);
+			$s5 = strtolower($row['s5']);
+			$s6 = strtolower($row['s6']);
+			$s7 = strtolower($row['s7']);
+			$s8 = strtolower($row['s8']);
+			$s9 = strtolower($row['s9']);
+			
+			
+			$s1 = strtolower($row['q1']);
+			
+		}
         
         $result = array();
         if (($handle = fopen("./data/pokemon_skills.csv", "r")) !== FALSE) {
@@ -107,7 +137,6 @@ class Data
                 $s7 = strtolower($data[array_search('s7',$header)]);
                 $s8 = strtolower($data[array_search('s8',$header)]);
                 $s9 = strtolower($data[array_search('s9',$header)]);
-                
                 $dict['ss'] = array_filter(array($s1,$s2,$s3,$s4,$s5,$s6,$s7,$s8,$s9), create_function('$value','return $value!=="";'));
                 
                 array_push($result,$dict);
