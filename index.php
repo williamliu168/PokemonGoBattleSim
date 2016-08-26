@@ -19,6 +19,9 @@ Pokemon name: <input type="text" name="name"><br>
 <input type="submit">
 </form>
 
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_welcomePageLogin.php">example_welcomePageLogin</a>
+</form>
+
 <p>
 <?php
     require('host.php');
