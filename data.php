@@ -86,33 +86,37 @@ class Data
     public function read_pokemon_skills() {
         echo "[data] reading data: pokemon skills<BR>";
         
+        $query = 'select * from pokemon_skills';
+        $dbresult = $this->db->query($query);
         $result = array();
-        if (($handle = fopen("./data/pokemon_skills.csv", "r")) !== FALSE) {
-            $header = fgetcsv($handle, ",");
+        foreach ($dbresult as $row)
+        {
+            $dict = array();
+            $dict['id'] = (int)$row['id'];
+            $dict['name'] = strtolower($row['name']);
+            $q1 = strtolower($row['q1']);
+            $q2 = strtolower($row['q2']);
+            $dict['qm'] = array_filter(array($q1,$q2), create_function('$value','return $value!=="";'));
             
-            while (($data = fgetcsv($handle, ",")) !== FALSE) {
-                $dict = array();
-                $dict['id']     = (int)($data[array_search('id',$header)]);
-                $dict['name']   = strtolower($data[array_search('name',$header)]);
-                $q1 = strtolower($data[array_search('q1',$header)]);
-                $q2 = strtolower($data[array_search('q2',$header)]);
-                $dict['qm'] = array_filter(array($q1,$q2), create_function('$value','return $value!=="";'));
-                
-                $s1 = strtolower($data[array_search('s1',$header)]);
-                $s2 = strtolower($data[array_search('s2',$header)]);
-                $s3 = strtolower($data[array_search('s3',$header)]);
-                $s4 = strtolower($data[array_search('s4',$header)]);
-                $s5 = strtolower($data[array_search('s5',$header)]);
-                $s6 = strtolower($data[array_search('s6',$header)]);
-                $s7 = strtolower($data[array_search('s7',$header)]);
-                $s8 = strtolower($data[array_search('s8',$header)]);
-                $s9 = strtolower($data[array_search('s9',$header)]);
-                
-                $dict['ss'] = array_filter(array($s1,$s2,$s3,$s4,$s5,$s6,$s7,$s8,$s9), create_function('$value','return $value!=="";'));
-                
-                array_push($result,$dict);
-            }
-            fclose($handle);
+            $oq1 = strtolower($row['oq1']);
+            $dict['oqm'] = array_filter(array($oq1), create_function('$value','return $value!=="";'));
+            
+            $s1 = strtolower($row['q1']);
+            $s2 = strtolower($row['q2']);
+            $s3 = strtolower($row['q2']);
+            $s4 = strtolower($row['q2']);
+            $s5 = strtolower($row['q2']);
+            $s6 = strtolower($row['q2']);
+            $s7 = strtolower($row['q2']);
+            $s8 = strtolower($row['q2']);
+            $s9 = strtolower($row['q2']);
+            $dict['ss'] = array_filter(array($s1,$s2,$s3,$s4,$s5,$s6,$s7,$s8,$s9), create_function('$value','return $value!=="";'));
+            
+            $os1 = strtolower($row['os1']);
+            $os2 = strtolower($row['os2']);
+            $dict['oss'] = array_filter(array($os1,$os2), create_function('$value','return $value!=="";'));
+            
+            array_push($result,$dict);
         }
         
         $this->pokemon_skills = $result;
