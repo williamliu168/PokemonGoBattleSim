@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include_once 'db.php';
 
 class Data
 {
@@ -9,20 +9,36 @@ class Data
     public $skill_qm;
     public $skill_ss;
     public $cpm;
-    
-    public $db;
+	
+	// database (for now)
+	public $db;
+	private $servername = "localhost";
+	private $dbname = "pogobattlesim";
+	private $username = "root";
+	private $password = "";
 
     public function __construct() {
         echo "[data] building db object...<br>";
-        
-        $servername = "localhost";
-        $dbname = "pogobattlesim";
-        $username = "root";
-        $password = "";
-        
-        $this->db = new Db($servername,$username,$password);
-        $this->db->connect_to($dbname);
+		
+		$this->conn2db();
     }
+	
+	public function conn2db()
+	{
+		if (!isset($this->db))
+		{
+			$this->db = new Db($this->servername,$this->username,$this->password);
+			$this->db->connect_to($this->dbname);
+		}
+		elseif (!isset($this->db->pdo))
+		{
+			echo 'db is created but db->pdo=null. so connect_to(db) now<br>';
+			$this->db->connect_to($this->dbname);
+		}
+		else {
+			echo 'already connected<br>';
+		}
+	}
     
     public function read_all() {
         $this->read_pokemon_stats();
@@ -61,6 +77,15 @@ class Data
     public function get_cpm($level){
         return $this->cpm[$level];
     }
+	
+	public function get_all_pokemon_names()
+	{
+		$result = array();
+		foreach($this->pokemon_stats as $dict){
+			array_push($result,$dict['name']);
+		}
+		return $result;
+	}
     
     public function read_pokemon_stats() {
         echo "[data] reading data: pokemon stats<BR>";
@@ -127,31 +152,7 @@ class Data
             $q1 = strtolower($row['q1']);
             $q2 = strtolower($row['q2']);
             $dict['qm'] = array_filter(array($q1,$q2), create_function('$value','return $value!=="";'));
-            
-<<<<<<< HEAD
-            while (($data = fgetcsv($handle, ",")) !== FALSE) {
-                $dict = array();
-                $dict['id']     = (int)($data[array_search('id',$header)]);
-                $dict['name']   = strtolower($data[array_search('name',$header)]);
-                $q1 = strtolower($data[array_search('q1',$header)]);
-                $q2 = strtolower($data[array_search('q2',$header)]);
-                $dict['qm'] = array_filter(array($q1,$q2), create_function('$value','return $value!=="";'));
-                
-                $s1 = strtolower($data[array_search('s1',$header)]);
-                $s2 = strtolower($data[array_search('s2',$header)]);
-                $s3 = strtolower($data[array_search('s3',$header)]);
-                $s4 = strtolower($data[array_search('s4',$header)]);
-                $s5 = strtolower($data[array_search('s5',$header)]);
-                $s6 = strtolower($data[array_search('s6',$header)]);
-                $s7 = strtolower($data[array_search('s7',$header)]);
-                $s8 = strtolower($data[array_search('s8',$header)]);
-                $s9 = strtolower($data[array_search('s9',$header)]);
-                $dict['ss'] = array_filter(array($s1,$s2,$s3,$s4,$s5,$s6,$s7,$s8,$s9), create_function('$value','return $value!=="";'));
-                
-                array_push($result,$dict);
-            }
-            fclose($handle);
-=======
+
             $oq1 = strtolower($row['oq1']);
             $dict['oqm'] = array_filter(array($oq1), create_function('$value','return $value!=="";'));
             
@@ -171,7 +172,6 @@ class Data
             $dict['oss'] = array_filter(array($os1,$os2), create_function('$value','return $value!=="";'));
             
             array_push($result,$dict);
->>>>>>> 3f5d4ce4a3d6d5f16ae508abc29c8ba80bcd5fed
         }
         
         $this->pokemon_skills = $result;

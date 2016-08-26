@@ -13,6 +13,9 @@
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_getPokemonStats.php">example_getPokemonStats</a>
 </form>
 
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_welcomePageLogin.php">example_welcomePageLogin</a>
+</form>
+
 <p>
 <?php
     require('host.php');

@@ -2,7 +2,7 @@
 -- Table structure for table `members`
 --
 
-CREATE TABLE `members` (
+CREATE TABLE `account_info` (
   `id` int(11) NOT NULL auto_increment,
   `username` varchar(32) collate utf8_unicode_ci NOT NULL default '',
   `password` varchar(32) collate utf8_unicode_ci NOT NULL default '',

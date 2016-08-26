@@ -1,16 +1,19 @@
 <?php
 // this will be included at the very start of every page
 
-// 
-require('host.php');
+// session
+require_once('host.php');
 session_start([
     'cookie_lifetime' => 86400,
     'read_and_close'  => true,
+	'cache_limiter' => 'private',
 ]);
+
 if (isset($_SESSION['host'])) {
     $host = $_SESSION['host'];
 }
-else echo "error: session object undefined..<br>";
+
+require_once('utils.php');
 
 
 ?>
