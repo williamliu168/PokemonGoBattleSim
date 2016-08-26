@@ -1,0 +1,10 @@
+#header {
+}
+
+#header > ol li{
+	display: inline-block;
+}
+
+#header > ol {
+	margin: auto;
+}
