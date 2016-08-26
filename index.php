@@ -10,7 +10,13 @@
 ?>
 <body>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_getPokemonStats.php">example_getPokemonStats</a>
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_getPokemonStats.php">example_getPokemonStats</a></form>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_printTypeTable.php">example_printTypeTable</a></form>
+
+<form action="example_lookupPokemon.php" method="post">
+Pokemon name: <input type="text" name="name"><br>
+<input type="submit">
 </form>
 
 <p>

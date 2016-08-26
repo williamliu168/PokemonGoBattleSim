@@ -36,6 +36,18 @@ class Db
 		return $result;
 	}
     
+    public function fetch_columns($tablename)
+    {
+        $dbresult = $this->pdo->query('select * from '.$tablename);
+        $total_column = $dbresult->columnCount();
+
+        for ($c = 0; $c < $total_column; $c++) {
+            $meta = $dbresult->getColumnMeta($c);
+            $columns[] = $meta['name'];
+        }
+        return $columns;
+    }
+    
     public function done(){
         $pdo=null;
     }

@@ -41,6 +41,26 @@ class Data
         }
     }
     
+    public function getSkillData($id){
+        foreach($this->pokemon_skills as $dict){
+            if($dict['id']==$id)
+            {
+                return array($dict['qm'],$dict['oqm'],$dict['ss'],$dict['oss']);
+            }
+        }
+    }
+    
+    public function nameToId($pokemon_name){
+        foreach($this->pokemon_stats as $dict)
+        {
+            if ($dict['name']==$pokemon_name)
+            {
+                return $dict['id'];
+            }
+        }
+        return 0;
+    }
+    
     public function getQmData($name){
         foreach($this->skill_qm as $dict){
             if ($dict['name']==$name){
@@ -101,15 +121,15 @@ class Data
             $oq1 = strtolower($row['oq1']);
             $dict['oqm'] = array_filter(array($oq1), create_function('$value','return $value!=="";'));
             
-            $s1 = strtolower($row['q1']);
-            $s2 = strtolower($row['q2']);
-            $s3 = strtolower($row['q2']);
-            $s4 = strtolower($row['q2']);
-            $s5 = strtolower($row['q2']);
-            $s6 = strtolower($row['q2']);
-            $s7 = strtolower($row['q2']);
-            $s8 = strtolower($row['q2']);
-            $s9 = strtolower($row['q2']);
+            $s1 = strtolower($row['s1']);
+            $s2 = strtolower($row['s2']);
+            $s3 = strtolower($row['s3']);
+            $s4 = strtolower($row['s4']);
+            $s5 = strtolower($row['s5']);
+            $s6 = strtolower($row['s6']);
+            $s7 = strtolower($row['s7']);
+            $s8 = strtolower($row['s8']);
+            $s9 = strtolower($row['s9']);
             $dict['ss'] = array_filter(array($s1,$s2,$s3,$s4,$s5,$s6,$s7,$s8,$s9), create_function('$value','return $value!=="";'));
             
             $os1 = strtolower($row['os1']);
@@ -124,22 +144,23 @@ class Data
     
     public function read_type_table() {
         echo "[data] reading data: elemental effectiveness table<BR>";
-        
-        $result = array();
-        if (($handle = fopen("./data/type_table.csv", "r")) !== FALSE) {
-            $header = fgetcsv($handle, ",");
-            
-            while (($data = fgetcsv($handle, ",")) !== FALSE) {
-                $dict = array();
-                
-                foreach($header as $defType){
-                    // echo $data[0]."->".$defType."=".$data[array_search($defType,$header)]."<BR>";
-                    $dict[$defType] = (float)($data[array_search($defType,$header)]);
-                }
 
-                $result[$data[0]]=$dict;
+        $query = 'select * from type_table';
+        $dbresult = $this->db->query($query);
+        $result = array();
+        
+        $columns = $this->db->fetch_columns('type_table');
+        array_shift($columns);    // get rid of the first column name 'atkType'
+
+        foreach ($dbresult as $row)
+        {
+            $atkType = $row[0];
+            foreach ($columns as $defType)
+            {
+                $dict[$defType] = (float)($row[$defType]);
+                // echo $atkType.' do x'.$dict[$defType].' to '.$defType.'<br>';
             }
-            fclose($handle);
+            $result[$atkType]=$dict;
         }
         
         $this->type_table = $result;
