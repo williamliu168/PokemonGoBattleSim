@@ -19,12 +19,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td>\</td>
+    <tr><td>A\D</td>
 <?php
 
     foreach(array_keys($first_row) as $defType)
     {
-        echo '<td>'.$defType.'</td>';
+        echo '<td><img src=./img/elements/'.$defType.'.png></td>';
     }
     ?>
     </tr>
@@ -32,7 +32,7 @@
 
     foreach($defTypes as $defType) {
         $row = $table[$defType];
-        echo '<tr><td>'.$defType.'</td>';
+        echo '<tr><td><img src=./img/elements/'.$defType.'.png></td>';
         foreach($row as $item){
             echo '<td>'.$item.'</td>';
         }
