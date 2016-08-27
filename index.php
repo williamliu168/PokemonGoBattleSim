@@ -24,7 +24,7 @@ Pokemon name: <input type="text" name="name"><br>
 
 <p>
 <?php
-    require('host.php');
+    require_once('host.php');
     include 'mon.php';
     
     $host = new Host();
