@@ -12,6 +12,11 @@ session_start([
 if (isset($_SESSION['host'])) {
     $host = $_SESSION['host'];
 }
+else {
+    $host = new Host();
+    $host->data->done();    // done with db connection
+    $_SESSION['host']=$host;
+}
 
 require_once('utils.php');
 
