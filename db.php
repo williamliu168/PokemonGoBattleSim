@@ -30,8 +30,13 @@ class Db
 	
 	public function query($query) {
 		$result = array();
-		foreach($this->pdo->query($query) as $row) {
-			array_push($result,$row);
+		$dbresult = $this->pdo->query($query);
+		if ($dbresult) {
+			foreach($dbresult as $row) {
+				array_push($result,$row);
+			}
+		} else {
+			// no result
 		}
 		return $result;
 	}
