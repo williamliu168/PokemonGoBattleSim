@@ -10,24 +10,24 @@ class Db
 	public $pdo;
 	
     public function __construct($servername,$username,$password) {
-        echo "[db] init..<BR>";
+        // echo "[db] init..<BR>";
 		$this->servername = $servername;
 		$this->username = $username;
 		$this->password = $password;
     }
     
     public function connect_to($dbname) {
-		echo "[db] connecting to ".$dbname."... ";
+		// echo "[db] connecting to ".$dbname."... ";
 		try {
 			$this->pdo = new PDO('mysql:host='.$this->servername.';dbname='.$dbname,$this->username,$this->password);
-			echo "successful<BR>";
+			// echo "successful<BR>";
 		} catch (PDOException $e) {
-			echo "fail<BR>";
 			echo "[db] error: " . $e->getMessage() . "<br>";
 			return;
 		}
     }
 	
+	// for SELECT statements - return result in an array
 	public function query($query) {
 		$result = array();
 		$dbresult = $this->pdo->query($query);
@@ -39,6 +39,14 @@ class Db
 			// no result
 		}
 		return $result;
+	}
+	
+	// for insert statements - return bool
+	public function execute($query)
+	{
+		$result = array();
+		$sth = $this->pdo->prepare($query);
+		return $sth->execute();	// returns true on success
 	}
     
     public function fetch_columns($tablename)

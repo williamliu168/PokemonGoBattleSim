@@ -11,7 +11,7 @@ class Userdata
 	private $password = "";
 
     public function __construct() {
-        echo "[userdata] constructor<br>";
+        // echo "[userdata] constructor<br>";
 		
 		$this->conn2db();
     }
@@ -38,12 +38,10 @@ class Userdata
         $dbresult = $this->db->query($query);
         if(empty($dbresult))
         {
-            echo 'false<br>';
             return false;
         }
         else
         {
-            echo 'true<br>';
             return true;
         }
     }
@@ -73,26 +71,40 @@ class Userdata
         $username = $reg_info['username'];
         $password = $reg_info['password'];
         $email = $reg_info['email'];
-        $ip = $_SERVER['REMOTE_ADDR'];
-        echo 'ip='.$ip.'<br>';
-        $datetime = datetime();
-        echo 'datetime='.$datatime.'<br>';
+        $ip = $this->get_client_ip();
+        $datetime = date("Y-m-d H:i:s");
 
-        $query = 'INSERT INTO account_info (username, password, email, reg_ip) VALUES("'.$username.'", "'.$password.'", "'.$email.'", "'.$ip.'")';
-        $dbresult = $this->db->query($query);
-        // todo, find a way to tell if insert successful.
-        if(empty($dbresult))
+        $query = 'INSERT INTO account_info (username, password, email, reg_ip,reg_time) VALUES("'.$username.'", "'.$password.'", "'.$email.'", "'.$ip.'", "'.$datetime.'")';
+        $dbresult = $this->db->execute($query);
+        if($dbresult)
         {
-            echo '$dbresult empty<br>';
+            echo 'successful insert into database<br>';
+            return true;
+        }
+        elseif (!$dbresult)
+        {
+            echo 'failed to insert into database<br>';
             return false;
         }
-        if (!$dbresult)
-        {
-            echo '$dbresult=false';
-            return false;
-        }
-        return true;
     }
+	
+	public function login($username, $password)
+	{
+		// this seems ratchet
+		$username = $this->db->pdo->quote($username);
+		$password = $this->db->pdo->quote($password);
+		$query = "SELECT * FROM account_info WHERE username = $username AND password = $password";
+		echo "$query<br>";
+		$dbresult = $this->db->query($query);
+		if (sizeof($dbresult)>0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
     
     public function done() {
         $this->db->done();

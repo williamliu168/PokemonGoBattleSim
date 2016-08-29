@@ -1,14 +1,19 @@
 <?php
+// tutorial: http://code.tutsplus.com/tutorials/user-membership-with-php--net-1523
+// mysql_real_escape_string <-- todo need to find a replacement for this.
 	require_once('header.php');
+	include_once('userdata.php');
+
+	$userdata = new Userdata();
+	$host->data->conn2db();
+	// so you can use $host->data->db->pdo->quote($string)
 
 	if(isset($_SESSION['myusername'])){
 		$myusername=$_SESSION['myusername'];
 		echo 'Found username '.$myusername.' in session.<br>';
 	} else {
-		echo 'Did not find username in session.<br>';
 		$host->data->conn2db();
 		$guestname=generateRandomGuestName($host->data);
-		echo 'Generate a guest username '.$guestname.'<br>';
 		$_SESSION['guest'] = $guestname;
 		$myusername=$_SESSION['guest'];
 	}
@@ -28,7 +33,21 @@
 	}
 	elseif(!empty($_POST['username']) && !empty($_POST['password']))
 	{
-   		echo 'Let the user login<br>';
+		$username = $_POST['username'];
+		$password = md5($_POST['password']);
+		 
+		$success = $userdata->login($username,$password);
+
+		if ($success)
+		{
+			echo "Welcome, $username! You logged in<br>";
+			echo "We will redirect you to the member area.<br>";
+			// echo "<meta http-equiv='refresh' content='=2;index.php' />";
+		}
+		else
+		{
+			echo "error! Sorry, the credential you entered could not be found, please <a href=\"example_login.php\">try again</a></p>";
+		}
 	}
 	else
 	{

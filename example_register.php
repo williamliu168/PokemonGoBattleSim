@@ -28,7 +28,7 @@ if(!empty($_POST['username']) && !empty($_POST['password']))
     }
     else
     {
-    	$sucess = $userdata->register($reg_info);
+    	$success = $userdata->register($reg_info);
     	if ($success)
     	{
     		echo 'Success! your account was created. Please <a href=example_login.php>click here to login</a><br>';
