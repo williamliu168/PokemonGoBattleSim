@@ -36,7 +36,7 @@ class Data
 			$this->db->connect_to($this->dbname);
 		}
 		else {
-			echo 'already connected<br>';
+			// echo 'already connected<br>';
 		}
 	}
     
