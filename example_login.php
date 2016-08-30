@@ -3,26 +3,36 @@
 // mysql_real_escape_string <-- todo need to find a replacement for this.
 	require_once('header.php');
 	include_once('userdata.php');
+	
+	$userdata = new UserData();
 
-	$userdata = new Userdata();
-	$host->data->conn2db();
-	// so you can use $host->data->db->pdo->quote($string)
-
-	if(isset($_SESSION['myusername'])){
-		$myusername=$_SESSION['myusername'];
+	if(!isset($_SESSION['UserName']))
+	{
+		echo '$_SESSION[UserName] is not set<br>';
+	}
+	else {
+		echo '$_SESSION[UserName] is set<br>';
+	}
+		
+	if(isset($_SESSION['UserName']))
+	{
+		$myusername=$_SESSION['UserName'];
 		echo 'Found username '.$myusername.' in session.<br>';
-	} else {
+	} elseif (!empty($guestname))
+	{
+	}
+	else {
 		$host->data->conn2db();
 		$guestname=generateRandomGuestName($host->data);
-		$_SESSION['guest'] = $guestname;
-		$myusername=$_SESSION['guest'];
+		$_SESSION['Guest'] = $guestname;
+		$myusername=$_SESSION['Guest'];
 	}
 	
-	$host->data->conn2db();
-	$result = $host->data->db->query("select * from account_info where username='$myusername'");
 	
-	echo 'Hi, '.$myusername.'<br>';
-
+	
+	?>
+	<a href="index.php">Home</a> | <a href="example_login.php">Login</a> | <a href="example_register.php">Register</a><br>
+	<?php
 	if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 	{
 		?>
@@ -40,9 +50,30 @@
 
 		if ($success)
 		{
+			if (isset($_POST['remember']) && $_POST['remember'])
+			{
+				$until = time()+3600;
+				setcookie('remember_username',$_POST['username'],$until);
+				setcookie('remember_password',$_POST['password'],$until);
+			}
+			else
+			{
+				if(isset($_COOKIE['remember_username'])) {
+					$past = time()-100;
+					setcookie(remember_username, 'gone', $past);
+				}
+			}
+			
+			$_SESSION['LoggedIn']=TRUE;
+			$_SESSION['UserName']=$username;
+			echo $_SESSION['UserName'].'<br>';
+
 			echo "Welcome, $username! You logged in<br>";
 			echo "We will redirect you to the member area.<br>";
-			// echo "<meta http-equiv='refresh' content='=2;index.php' />";
+			// sleep(3);
+			// echo "<meta http-equiv='refresh' content='2;url=example_login.php'>";
+			// header( "refresh:3; url=example_login.php" ); 
+			session_write_close();
 		}
 		else
 		{
@@ -52,22 +83,20 @@
 	else
 	{
 		?>
+		
+		<p>If you don't have an account already, and would like us to remeber your pokemons and preferences for the site, please <a href="example_register.php">register here</a></p>
 
 		<p>Member Login</p>
-
-		<p>Thanks for visiting! Please either login below, or <a href="example_register.php">click here to register</a></p>
-
 		<form method="post" action="example_login.php" name="loginform" id="loginform">
-		<fieldset>
-			<label for="username">Username:</label><input type="text" name="username" id="username" /><br>
-        	<label for="password">Password:</label><input type="password" name="password" id="password" /><br>
-        	<input type="submit" name="login" id="login" value="Login" />
-		</fieldset>
+			<label for="username">Username: </label>
+			<input type="text" name="username" id="username" maxlength="30" value="<?php if(isset($_COOKIE['remember_username'])){ echo $_COOKIE['remember_username'];} ?>"><br>
+        	<label for="password">Password: </label>
+			<input type="password" name="password" id="password" maxlength="30"><br>
+			<input type="checkbox" name="remember" value="1">Remember Me<br>
+        	<input type="submit" name="login" id="login" value="Log in" />
     	</form>
-     
+
    <?php
 	}
-
-
 
 ?>

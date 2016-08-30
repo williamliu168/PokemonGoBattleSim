@@ -12,15 +12,14 @@
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_getPokemonStats.php">example_getPokemonStats</a></form>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_printTypeTable.php">example_printTypeTable</a></form>
+<a href="example_printTypeTable.php">example_printTypeTable</a>
 
 <form action="example_lookupPokemon.php" method="post">
 Pokemon name: <input type="text" name="name"><br>
 <input type="submit">
 </form>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_login.php">example_login</a>
-</form>
+<a href="example_login.php">example_login</a>
 
 <p>
 <?php

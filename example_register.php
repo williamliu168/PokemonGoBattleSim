@@ -13,6 +13,8 @@
 <body>
 <div id="main">
 
+<a href="example_login.php">login</a> | <a href="example_register.php">register</a><br>
+
 <?php
 if(!empty($_POST['username']) && !empty($_POST['password']))
 {

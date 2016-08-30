@@ -90,11 +90,14 @@ class Userdata
 	
 	public function login($username, $password)
 	{
+		$this->conn2db();
+		
 		// this seems ratchet
 		$username = $this->db->pdo->quote($username);
 		$password = $this->db->pdo->quote($password);
 		$query = "SELECT * FROM account_info WHERE username = $username AND password = $password";
-		echo "$query<br>";
+		// echo "$query<br>";
+		
 		$dbresult = $this->db->query($query);
 		if (sizeof($dbresult)>0)
 		{
