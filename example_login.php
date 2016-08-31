@@ -1,28 +1,32 @@
 <?php
 // tutorial: http://code.tutsplus.com/tutorials/user-membership-with-php--net-1523
 // mysql_real_escape_string <-- todo need to find a replacement for this.
-	require_once('header.php');
-	include_once('userdata.php');
-	
-	$userdata = new UserData();
 
-	if(!isset($_SESSION['UserName']))
+// good tutorial on php's PDO: https://phpdelusions.net/pdo
+?>
+<?php require_once('header.php'); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<title>User Login</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+
+<a href="./index.php">Home</a> | <a href="./example_login.php">Login</a> | <a href="./example_register.php">Register</a><br>
+
+<?php
+	//echo $host->userData->dump().'<br>';
+	// userData->dump().'<br>';
+
+	if ( $host->userData->is_logged_in() )
 	{
-		echo '$_SESSION[UserName] is not set<br>';
-	}
-	else {
-		echo '$_SESSION[UserName] is set<br>';
-	}
-		
-	if(isset($_SESSION['UserName']))
-	{
-		$myusername=$_SESSION['UserName'];
-		echo 'Found username '.$myusername.' in session.<br>';
+		$myusername=$host->userData->loginAs();
 	} elseif (!empty($guestname))
 	{
 	}
 	else {
-		$host->data->conn2db();
 		$guestname=generateRandomGuestName($host->data);
 		$_SESSION['Guest'] = $guestname;
 		$myusername=$_SESSION['Guest'];
@@ -31,13 +35,12 @@
 	
 	
 	?>
-	<a href="index.php">Home</a> | <a href="example_login.php">Login</a> | <a href="example_register.php">Register</a><br>
 	<?php
-	if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
+	if( $host->userData->is_logged_in() )
 	{
 		?>
 		<h1>Member Area</h1>
-		<p>Thanks for logging in,  <?php echo $_SESSION['Username'];?></p>
+		<p>Thanks for logging in,  <?php echo $host->userData->loginAs(); ?>. <a href="./logout.php">Logout</a></p>
     	
     	<?php
 	}
@@ -45,8 +48,8 @@
 	{
 		$username = $_POST['username'];
 		$password = md5($_POST['password']);
-		 
-		$success = $userdata->login($username,$password);
+
+		$success = $host->userData->login($db,$username,$password);
 
 		if ($success)
 		{
@@ -60,19 +63,15 @@
 			{
 				if(isset($_COOKIE['remember_username'])) {
 					$past = time()-100;
-					setcookie(remember_username, 'gone', $past);
+					setcookie('remember_username', 'gone', $past);
 				}
 			}
-			
-			$_SESSION['LoggedIn']=TRUE;
-			$_SESSION['UserName']=$username;
-			echo $_SESSION['UserName'].'<br>';
 
 			echo "Welcome, $username! You logged in<br>";
 			echo "We will redirect you to the member area.<br>";
 			// sleep(3);
 			// echo "<meta http-equiv='refresh' content='2;url=example_login.php'>";
-			// header( "refresh:3; url=example_login.php" ); 
+			// header( "refresh:3; url=example_login.php" );
 			session_write_close();
 		}
 		else
@@ -100,3 +99,5 @@
 	}
 
 ?>
+</body>
+</html>

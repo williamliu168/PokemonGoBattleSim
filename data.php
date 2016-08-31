@@ -9,44 +9,41 @@ class Data
     public $skill_qm;
     public $skill_ss;
     public $cpm;
-	
-	// database (for now)
-	public $db;
-	private $servername = "localhost";
-	private $dbname = "pogobattlesim";
-	private $username = "root";
-	private $password = "";
 
     public function __construct() {
         echo "[data] building db object...<br>";
-		
-		$this->conn2db();
     }
 	
-	public function conn2db()
+	public function conn2db($db)
 	{
-		if (!isset($this->db))
+		if (!isset($db))
 		{
-			$this->db = new Db($this->servername,$this->username,$this->password);
-			$this->db->connect_to($this->dbname);
+			$db = new Db();
+			$db->connect_to();
 		}
-		elseif (!isset($this->db->pdo))
+		elseif (!isset($db->pdo))
 		{
 			echo 'db is created but db->pdo=null. so connect_to(db) now<br>';
-			$this->db->connect_to($this->dbname);
+			$db->connect_to();
 		}
 		else {
 			// echo 'already connected<br>';
 		}
 	}
     
-    public function read_all() {
+    public function read_all($db) {
+		$this->conn2db($db);
+		
+		$this->db = $db;
+		
         $this->read_pokemon_stats();
         $this->read_pokemon_skills();
         $this->read_type_table();
         $this->read_qm();
         $this->read_ss();
         $this->read_cpm();
+
+		$this->db = null;	// the data object is most likely stored in the session, but db pdo cannot be stored, so set null
     }
     
     public function getBasicData($id){
@@ -288,11 +285,6 @@ class Data
         }
         
         $this->cpm = $result;
-    }
-    
-    public function done() {
-        $this->db->done();
-        $this->db=null;
     }
 }
 ?>

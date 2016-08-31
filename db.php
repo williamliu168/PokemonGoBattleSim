@@ -2,27 +2,25 @@
 
 class Db
 {
-	private $servername;
-	private $dbname;
-	private $username;
-	private $password;
+	private $servername = "localhost";
+	private $dbname = "pogobattlesim";
+	private $username = "root";
+	private $password = "";
 	
 	public $pdo;
 	
-    public function __construct($servername,$username,$password) {
+    public function __construct() {
         // echo "[db] init..<BR>";
-		$this->servername = $servername;
-		$this->username = $username;
-		$this->password = $password;
     }
     
-    public function connect_to($dbname) {
+    public function connect_to() {
 		// echo "[db] connecting to ".$dbname."... ";
 		try {
-			$this->pdo = new PDO('mysql:host='.$this->servername.';dbname='.$dbname,$this->username,$this->password);
+			$this->pdo = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname,$this->username,$this->password);
+			$this->pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 			// echo "successful<BR>";
 		} catch (PDOException $e) {
-			echo "[db] error: " . $e->getMessage() . "<br>";
+			throw $e;
 			return;
 		}
     }
@@ -30,7 +28,12 @@ class Db
 	// for SELECT statements - return result in an array
 	public function query($query) {
 		$result = array();
-		$dbresult = $this->pdo->query($query);
+		try {
+			$dbresult = $this->pdo->query($query);
+		} catch(PDOException $e) {
+			throw $e;
+			return;
+		}
 		if ($dbresult) {
 			foreach($dbresult as $row) {
 				array_push($result,$row);
@@ -44,14 +47,26 @@ class Db
 	// for insert statements - return bool
 	public function execute($query)
 	{
-		$result = array();
-		$sth = $this->pdo->prepare($query);
-		return $sth->execute();	// returns true on success
+		$success = FALSE;
+		try {
+			$sth = $this->pdo->prepare($query);
+			$success = $sth->execute();
+		} catch (PDOException $e) {
+			throw $e;
+			return;
+		}
+		
+		return $success;
 	}
     
     public function fetch_columns($tablename)
     {
-        $dbresult = $this->pdo->query('select * from '.$tablename);
+		try {
+			$dbresult = $this->pdo->query('select * from '.$tablename);
+		} catch (PDOException $e) {
+			throw $e;
+			return;
+		}
         $total_column = $dbresult->columnCount();
 
         for ($c = 0; $c < $total_column; $c++) {
@@ -60,9 +75,16 @@ class Db
         }
         return $columns;
     }
+	
+	public function isConnected(){
+		return ($pdo!=null);
+	}
     
-    public function done(){
-        $pdo=null;
+    public function close(){
+		if ($this->pdo!=null)
+		{
+			$this->pdo == null;
+		}
     }
 }
 ?>

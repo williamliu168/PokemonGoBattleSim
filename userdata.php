@@ -1,41 +1,37 @@
 <?php
 include_once 'db.php';
 
-class Userdata
-{
-	// database (for now)
-	public $db;
-	private $servername = "localhost";
-	private $dbname = "pogobattlesim";
-	private $username = "root";
-	private $password = "";
+class UserData
+{	
+	private $loginAs;
 
     public function __construct() {
-        // echo "[userdata] constructor<br>";
-		
-		$this->conn2db();
+        echo "[userData] constructor<br>";
+		$this->loginState = FALSE;
+		$this->loginAs = '';
     }
 	
-	public function conn2db()
+	public function conn2db($db)
 	{
-		if (!isset($this->db))
+		if (!isset($db))
 		{
-			$this->db = new Db($this->servername,$this->username,$this->password);
-			$this->db->connect_to($this->dbname);
+			$db = new Db();
+			$db->connect_to();
 		}
-		elseif (!isset($this->db->pdo))
+		elseif (!isset($db->pdo))
 		{
-			$this->db->connect_to($this->dbname);
+			echo 'db is created but db->pdo=null. so connect_to(db) now<br>';
+			$db->connect_to();
 		}
 		else {
             // already connecting to db
 		}
 	}
 
-    public function usernameExist($username)
+    public function usernameExist($db,$username)
     {
         $query = 'SELECT * FROM account_info WHERE username="'.$username.'"';
-        $dbresult = $this->db->query($query);
+		$dbresult = $db->query($query);
         if(empty($dbresult))
         {
             return false;
@@ -66,7 +62,7 @@ class Userdata
         return $ipaddress;
     }
 
-    public function register($reg_info)
+    public function register($db,$reg_info)
     {
         $username = $reg_info['username'];
         $password = $reg_info['password'];
@@ -75,7 +71,7 @@ class Userdata
         $datetime = date("Y-m-d H:i:s");
 
         $query = 'INSERT INTO account_info (username, password, email, reg_ip,reg_time) VALUES("'.$username.'", "'.$password.'", "'.$email.'", "'.$ip.'", "'.$datetime.'")';
-        $dbresult = $this->db->execute($query);
+        $dbresult = $db->execute($query);
         if($dbresult)
         {
             echo 'successful insert into database<br>';
@@ -88,19 +84,20 @@ class Userdata
         }
     }
 	
-	public function login($username, $password)
+	public function login($db, $username, $password)
 	{
-		$this->conn2db();
+		$this->conn2db($db);
 		
 		// this seems ratchet
-		$username = $this->db->pdo->quote($username);
-		$password = $this->db->pdo->quote($password);
-		$query = "SELECT * FROM account_info WHERE username = $username AND password = $password";
+		$username_q = $db->pdo->quote($username);
+		$password_q = $db->pdo->quote($password);
+		$query = "SELECT * FROM account_info WHERE username = $username_q AND password = $password_q";
 		// echo "$query<br>";
 		
-		$dbresult = $this->db->query($query);
+		$dbresult = $db->query($query);
 		if (sizeof($dbresult)>0)
 		{
+			$this->logged_in_as($username);
 			return true;
 		}
 		else
@@ -108,10 +105,44 @@ class Userdata
 			return false;
 		}
 	}
+	
+	private function logged_in_as($username)
+	{
+		$this->loginAs=$username;
+		$this->loginState=TRUE;
+		echo "Logged in as $username<br>";
+	}
+	
+	public function is_logged_in()
+	{
+		return $this->loginState;
+	}
     
-    public function done() {
-        $this->db->done();
-        $this->db=null;
+    public function close($db) {
+		if ($db)
+		{
+			$db->close();
+			$db=null;
+		}
     }
+	
+	public function dump()
+	{
+		$dump = '';
+		$dump.="[$this->loginAs] as ";
+		if ($this->loginstate)
+		{
+			$dump.='member<br>';
+		}
+		else {
+			$dump.='guest<br>';
+		}
+		return $dump;
+	}
+	
+	public function loginAs()
+	{
+		return $this->loginAs;
+	}
 }
 ?>

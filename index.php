@@ -1,6 +1,4 @@
-<?php
-    session_start();
-?>
+<?php require_once('header.php'); ?>
 
 <!DOCTYPE html>
 <html>
@@ -23,10 +21,9 @@ Pokemon name: <input type="text" name="name"><br>
 
 <p>
 <?php
-    require_once('host.php');
+
     include 'mon.php';
-    
-    $host = new Host();
+
 /*
     $pikachu = new Pokemon($host->data,25,"thunder shock","thunderbolt", 80);
     
@@ -35,7 +32,6 @@ Pokemon name: <input type="text" name="name"><br>
     $host->arena->oneVsOne($pikachu,$charmander);
 */  
     // at the end we want to pass the Host object to other pages
-    $host->data->done();    // done with db connection
     $_SESSION['host']=$host;
 ?>
 </p>

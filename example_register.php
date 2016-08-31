@@ -1,19 +1,14 @@
-<?php
-	require_once('header.php');
-	include_once('userdata.php');
-	$userdata = new Userdata();
-?>
+<?php require_once('header.php'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">  
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
- 
-<title>0o0o0o0o0o0o0</title>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>User Register</title>
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
-<div id="main">
 
-<a href="example_login.php">login</a> | <a href="example_register.php">register</a><br>
+<a href="./index.php">Home</a> | <a href="./example_login.php">Login</a> | <a href="./example_register.php">Register</a><br>
 
 <?php
 if(!empty($_POST['username']) && !empty($_POST['password']))
@@ -59,7 +54,6 @@ else
 	<?php
 }
 ?>
- 
-</div>
+
 </body>
 </html>
