@@ -69,9 +69,9 @@
 
 			echo "Welcome, $username! You logged in<br>";
 			echo "We will redirect you to the member area.<br>";
-			// sleep(3);
+			// sleep(2);
 			// echo "<meta http-equiv='refresh' content='2;url=example_login.php'>";
-			// header( "refresh:3; url=example_login.php" );
+			header( "refresh:2; url=example_login.php" );
 			session_write_close();
 		}
 		else

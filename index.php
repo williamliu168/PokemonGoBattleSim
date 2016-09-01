@@ -8,6 +8,8 @@
 ?>
 <body>
 
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_assumptions.php">Formulas and Assumptions</a></form>
+
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"><a href="<?php $cwd?>./example_getPokemonStats.php">example_getPokemonStats</a></form>
 
 <a href="example_printTypeTable.php">example_printTypeTable</a>

@@ -1,6 +1,4 @@
-<?php
-    require('header.php');
-?>
+<?php require('header.php'); ?>
 <html>
 
 <?php
@@ -23,7 +21,9 @@
     {
         echo 'type: '.$type1.'<br>';
     }
-        
+
+	echo "<img src='./img/pogo_gif/$id.gif'><br>";
+	
     echo 'base Atk: '.$bAtk.'<br>';
     echo 'base Def: '.$bDef.'<br>';
     echo 'base Sta: '.$bSta.'<br>';

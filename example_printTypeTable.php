@@ -19,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td>A\D</td>
+    <tr><td><?php /*atk v def >*/ ?></td>
 <?php
 
     foreach(array_keys($first_row) as $defType)
@@ -34,6 +34,23 @@
         $row = $table[$defType];
         echo '<tr><td><img src=./img/elements/'.$defType.'.png></td>';
         foreach($row as $item){
+			$color='';
+			if ($item=='1')
+			{
+				
+			}
+			elseif ($item=='1.25')
+			{
+				
+			}
+			elseif ($item=='0.8')
+			{
+				
+			}
+			else
+			{
+				
+			}
             echo '<td>'.$item.'</td>';
         }
         echo '</tr>';

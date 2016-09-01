@@ -23,7 +23,7 @@ class Data
 		}
 		elseif (!isset($db->pdo))
 		{
-			echo 'db is created but db->pdo=null. so connect_to(db) now<br>';
+			// echo 'db is created but db->pdo=null. so connect_to(db) now<br>';
 			$db->connect_to();
 		}
 		else {
