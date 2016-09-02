@@ -17,32 +17,33 @@
 		<li><a href="https://www.reddit.com/r/pokemongodev/comments/4t59t1/decoded_game_master_protobuf_file_v01_all_pokemon/">Lots of information</a> were decoded, including <a href="">quick_moves_table</a> (page to be made), <a href="">special_moves_table</a> (page to be made)</li>
 		<li><a href="http://bulbapedia.bulbagarden.net/wiki/Same-type_attack_bonus">STAB</a> is a 1.25 multiplier</li>
 		<li><a href="example_printTypeTable.php">Type effectiveness chart</a></li>
-		<li>Critical hit has a x1.50 multiplier</li>
+		<li>Critical hit has a x1.50 multiplier <font color="red">(unconfirmed)</font></li>
 	</ul>
 	
 	<p><a href="https://www.reddit.com/r/TheSilphRoad/comments/4t7r4d/exact_pokemon_cp_formula/">Exact CP formula</a> - derived from stats, do not really directly impact battle simulation.</p>
 	<ul>
-		<li>Stamina = (BaseStamina + IndividualStamina) * TotalCPMultiplier</li>
-		<li>Attack = (BaseAttack + IndividualAttack) * TotalCpMultiplier</li>
-		<li>Defense = (BaseDefense + IndividualDefense) * TotalCpMultiplier</li>
-		<li><a href="">Cpm table</a> (page to be made)</li>
+		<li>Stamina = (BaseStamina + IndividualStamina) * TotalCPMultiplier&dagger;</li>
+		<li>Attack = (BaseAttack + IndividualAttack) * TotalCpMultiplier&dagger;</li>
+		<li>Defense = (BaseDefense + IndividualDefense) * TotalCpMultiplier&dagger;</li>
+		<li>&dagger;<a href="">Cpm table</a> (page to be made)</li>
 	</ul>
 
 	<h3>Basic battle</h3>
 	<h4>Damage mechanics</h4>
-		<p><a href="https://pokemongo.gamepress.gg/damage-mechanics">[gamepress.gg]damage-mechanics</a> explains this topic very well</p>
-		<p>Formula: HpLoss = (int)floor(0.5*(ATK/DEF)x(Power)x(Stab)x(Type)+1);</p>
+		<p>Well explained by <a href="https://pokemongo.gamepress.gg/damage-mechanics">[gamepress.gg] damage-mechanics</a></p>
 	<ul>
-		<li>Delay in between any attacks - 50ms ("finger time")</li>
+		<li>HpLoss = floor(0.5*(ATK/DEF)x(Power)x(Stab)x(Type)+1</li>
+		<li>Delay in between any attacks - 50ms (I call it the "finger time")</li>
 		<li>2 hp loss = 1 fury gain</li>
+		<li>Crit is currently not included</li>
 	</ul>
 
 	<h3>Gym battle</h3>
-	<p><a href="https://www.reddit.com/r/TheSilphRoad/comments/4wzll7/testing_gym_combat_misconceptions/">This thread</a> give good info(facts and speculations) on gym battle</p>
+	<p><a href="https://www.reddit.com/user/homu">homu</a>'s <a href="https://www.reddit.com/r/TheSilphRoad/comments/4wzll7/testing_gym_combat_misconceptions/">thread</a> gives excellent information on gym battles</p>
 	<ul>
 		<li>Defender has double the max hp</li>
 		<li>Defender max fury increases from 100 to 200</li>
-		<li>Defender quick move duration +2s</li>
+		<li>Defender quick move duration +2s. Also refer to the 'Defender Attack Delay' section of </li>
 	</ul>
 
 	<h3>Unconfirmed</h3>
@@ -52,8 +53,8 @@
 
 	<h3>Dodging (?)</h3>
 	<ul>
-		<li>Duration of a dodge - 500ms</li>
-		<li>Dodged damage = floor(0.25*dmg) (minimum of 1)</li>
+		<li>Duration of a dodge - 500ms <font color="red">(unconfirmed)</font></li>
+		<li>Dodged damage = floor(0.25*dmg) (minimum of 1) <font color="red">(unconfirmed)</font></li>
 	</ul>
 	
 </body>

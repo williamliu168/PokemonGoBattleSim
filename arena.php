@@ -2,12 +2,20 @@
 
 class Arena
 {
-
     public function __construct($data) {
         echo "[arena] Initiating... <BR>";
         $this->data = $data;
     }
-    
+	
+	public function oneVsGym($a,$b)
+	{
+		$b->promoteGymMon();
+
+		oneVsOne($a,$b);
+
+		$b->demoteGymMon();
+	}
+
     public function oneVsOne($a,$b){
         echo "[arena] ooo 1 vs 1 ooo <BR>";
         echo "[arena] ".$a->dump()." vs ".$b->dump()."<BR>";

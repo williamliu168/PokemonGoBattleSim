@@ -12,7 +12,7 @@ class Db
     public function __construct() {
         // echo "[db] init..<BR>";
     }
-    
+
     public function connect_to() {
 		// echo "[db] connecting to ".$dbname."... ";
 		try {
