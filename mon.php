@@ -19,15 +19,15 @@ class Pokemon
         
         $this->data = $data;
         $this->id = $id;
-        
+
         $this->getBasicData();
-        
+
         $this->qm = new Qm($this->data,$qm);
         $this->ss = new Ss($this->data,$ss);
         $this->setStab();
-        
+
         $this->level = $level;
-        
+
         echo $this->name." lv.".$this->level." [".$this->qm->name."|".$this->ss->name."] ";
 
         $this->cpm = $this->data->get_cpm($this->level);
@@ -38,13 +38,17 @@ class Pokemon
         $this->cSta = ($this->bSta + 15)*$this->cpm;
         // echo $this->cAtk." ".$this->cDef." ".$this->cSta."<BR>";
         
+		$this->maxFury=100.0;
         $this->maxHp = (int)max(10,floor($this->cSta));
         echo "hp: ".$this->maxHp." ";
         $this->cp=(int)max(10, floor(($this->cAtk)*sqrt($this->cDef)*sqrt($this->cSta)/10.0));
         echo "cp: ".$this->cp." ";
-        
+
         echo "<BR>";
-        
+
+		// for gym
+		$this->isGymMon = FALSE;
+
         // for combat
         $this->action = 'standby';
         $this->action_progress = 0.0;
@@ -59,6 +63,7 @@ class Pokemon
         $this->loss = array();
         $this->draw = array();
 
+        $this->heal();
     }
     
     public function fight($tick) {
@@ -79,17 +84,33 @@ class Pokemon
                 $this->action_progress=0.0;
             }
         }
+		elseif ($this->action=='gymRest')
+		{
+			if ($this->action_progress>=2000)
+			{
+				// gymMon done resting
+				$this->action='standby';
+				$this->action_progress=0.0;
+			}
+		}
         elseif ($this->action=='qm')
         {
             if ($this->action_progress>=$this->qm->duration){
                 // qm done
                 $damage = new Damage($this->cAtk,$this->qm->power,$this->qm->type,0.0,$this->qm->stab);
                 $oldFury = $this->fury;
-                $this->fury=min($this->fury+$this->qm->furyGain,100);
+                $this->gainFury($this->qm->furyGain);
                 $dump.='[pokemon] '.$this->name.' performed '.$this->qm->nameWithStab().'<BR>';
-                
-                $this->action='standby';
-                $this->action_progress=0.0;
+
+				if ($this->isGymMon)
+				{
+					$this->action='gymRest';
+					$this->action_progress=0.0;
+				}
+				else {
+					$this->action='standby';
+					$this->action_progress=0.0;
+				}
             }
             else{
                 $this->action_progress+=$tick;
@@ -138,10 +159,12 @@ class Pokemon
         else {
             $stabM = 1.0;
         }
-        
-        $hpLoss = (int)floor( $dM*($atk/$this->cDef)*$power*$stabM*$typeM*$critM+1.0);
+
+        $hpLoss = floor($dM*($atk/$this->cDef)*$power*$stabM*$typeM/**$critM*/+1.0);
         
         $this->hp-=$hpLoss;
+        $this->gainFury($hpLoss/2);
+
         $dump.='[pokemon] '.$this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']<BR>';
         // todo - fury gain with hp loss
         
@@ -162,6 +185,10 @@ class Pokemon
         $this->action = 'standby';
         $this->action_progress = 0.0;
         $this->state = 'alive';
+    }
+    
+    public function gainFury($gain) {
+        $this->fury=min($this->fury+$gain,$this->maxFury);
     }
     
     private function getBasicData(){
@@ -207,6 +234,30 @@ class Pokemon
         $adj = (1.0-$chance)*1.0+$chance*$this->crit;
         echo "$chance% to crit ~= x$adj";
         return $adj;
+	}
+	
+	public function promoteGymMon()
+	{
+		if ($this->isGymMon)
+			return;
+
+		$this->isGymMon=True;
+		$this->maxHp*2;
+		$this->maxFury*2;
+	}
+	
+	public function demoteGymMon()
+	{
+		if (!$this->isGymMon)
+			return;
+
+		$this->isGymMon=False;
+		$this->maxHp/2;
+		if ($this->hp>$this->maxHp)
+		{
+            $this->hp=$this->maxHp;
+		}
+		$this->maxFury/2;
 	}
 }
 ?>
