@@ -127,8 +127,8 @@ class Pokemon
         $dM = 0.5;          // damage multiplier
         $this->crit = 1.5;  // assumption
         
-        // critM = $this->getCritMultiplier($damage);
-        // typeM = $this->getTypeMultiplier($damage);
+        $critM = $this->getCritMultiplier($damage);
+        $typeM = $this->getTypeMultiplier($damage);
         
         $atk = $damage->atk;
         $power = $damage->power;
@@ -139,7 +139,7 @@ class Pokemon
             $stabM = 1.0;
         }
         
-        $hpLoss = (int)floor( $dM*($atk/$this->cDef)*$power/*$stabM*$typeM*/+1.0);
+        $hpLoss = (int)floor( $dM*($atk/$this->cDef)*$power*$stabM*$typeM*$critM+1.0);
         
         $this->hp-=$hpLoss;
         $dump.='[pokemon] '.$this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']<BR>';
@@ -181,5 +181,32 @@ class Pokemon
         $dump = ucfirst($this->name).'['.$this->qm->nameWithStab().'|'.$this->ss->nameWithStab().']';
         return $dump;
     }
+	
+	public function getTypeMultiplier($damage) {
+        $attackType = $damage->type;
+        $dict = $this->data->type_table[$attackType];
+        $multiplier1 = 1.0;
+        $multiplier2 = 1.0;
+        if ($this->type1!='none') {
+            $multiplier1 = dict[$this->type1];
+		}
+        if ($this->type2!='none') {
+            $multiplier2 = dict[$this->type2];
+		}
+        $result = $multiplier1*$multiplier2;
+        echo "$attackType->".$this->type1."|".$this->type2." x$result<br>";
+        return $result;
+	}
+
+    public function getCritMultiplier($damage) {
+        $chance = $damage->critChance;
+        if ($chance<0.0 or $chance>100.0) {
+            echo "crit chance out of range: $chance";
+            return 1.0;
+		}
+        $adj = (1.0-$chance)*1.0+$chance*$this->crit;
+        echo "$chance% to crit ~= x$adj";
+        return $adj;
+	}
 }
 ?>
