@@ -5,6 +5,13 @@ $(document).ready(
 		//$backBtn.hide();
 		//$nextBtn.hide();
 
+		//Trainer Level Slider
+		$('#ex1').slider({
+			formatter: function(value) {
+				return 'Level ' + value;
+			}
+		});
+
 	    $(".thumbnail").click(function(){
 	    	if ($(this).hasClass("selected")) {
 	    		//If the onclick pokemon is already selected, then unselect it

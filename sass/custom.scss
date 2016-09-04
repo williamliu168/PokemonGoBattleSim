@@ -5,13 +5,14 @@ $highlight-color: #0099EE;
 $u1: 10px;
 $u2: 15px;
 
+h2 {
+	margin: $u1 0 3*$u1;
+}
+
 $bg-color: $light-gray;
 
 body {
 	background: $bg-color;
-}
-
-#header {
 }
 
 #header dl {
@@ -24,41 +25,39 @@ body {
 	text-align: center;
 	color: $dark-gray;
 	line-height: 2*$u2;
-}
 
-#header dt:before {
-	display: block;
-    background: $dark-gray;
-    width: 2*$u2;
-    height: 2*$u2;
-    border-radius: $u2;
-    line-height: 2*$u2;
-    color: white;
-    margin: 0 auto;
-}
+	&:before {
+		display: block;
+	    background: $dark-gray;
+	    width: 2*$u2;
+	    height: 2*$u2;
+	    border-radius: $u2;
+	    line-height: 2*$u2;
+	    color: white;
+	    margin: 0 auto;
+	}
 
-#header dt:after {
-    content: " ";
-    display: block;
-    width: 100%;
-    height: 5px;
-    background: $light-gray;
-    position: absolute;
-    top: $u2;
-    left: 50%;
-    z-index: -1;
-}
+	&:after {
+	    content: " ";
+	    display: block;
+	    width: 100%;
+	    height: 5px;
+	    background: $light-gray;
+	    position: absolute;
+	    top: $u2;
+	    left: 50%;
+	    z-index: -1;
+	}
+	&:last-of-type:after {
+		display: none;
+	}
 
-#header dt:last-of-type:after {
-	display: none;
-}
-
-#header dt.selected:before {
-	background: $highlight-color;
-}
-
-#header dt.selected {
-	color: $highlight-color;
+	&.selected:before {
+		background: $highlight-color;
+	}
+	&.selected {
+		color: $highlight-color;
+	}
 }
 
 #header dl dt[id="step-1"]:before {
@@ -114,13 +113,33 @@ body {
 .thumbnail {
 	background: darken($bg-color, 3%);
 	border: 3px solid darken($bg-color, 3%);
-}
-.thumbnail:hover{
-    border: 3px solid darken($bg-color,10%) !important;
+	&:hover {
+		border: 3px solid darken($bg-color,10%) !important;
+	}
+	&.selected, &.selected:hover {
+		border: 3px solid $highlight-color !important;
+	}
 }
 
-.thumbnail.selected, thumbnail.selected:hover{
-	border: 3px solid $highlight-color !important;
+.well {
+	min-height: 200px;
+	> img {
+		margin: 50px auto;
+		display: block;
+	}
+}
+
+.pokemon_type, .label-default{
+	margin-left: 5px;
+}
+
+#ex1Slider .slider-selection {
+	background: #BABABA;
+}
+
+.input-row >label {
+	width: 100%;
+	color: $dark-gray;
 }
 
 .input-group {
@@ -129,4 +148,7 @@ body {
 
 .no-margin {
 	margin: 0;
+}
+.input-row {
+	margin: 20px 0 0;
 }

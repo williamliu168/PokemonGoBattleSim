@@ -1,3 +1,6 @@
+h2 {
+  margin: 10px 0 30px; }
+
 body {
   background: #f0f0f0; }
 
@@ -10,36 +13,31 @@ body {
   text-align: center;
   color: #7C7C7C;
   line-height: 30px; }
-
-#header dt:before {
-  display: block;
-  background: #7C7C7C;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  line-height: 30px;
-  color: white;
-  margin: 0 auto; }
-
-#header dt:after {
-  content: " ";
-  display: block;
-  width: 100%;
-  height: 5px;
-  background: #f0f0f0;
-  position: absolute;
-  top: 15px;
-  left: 50%;
-  z-index: -1; }
-
-#header dt:last-of-type:after {
-  display: none; }
-
-#header dt.selected:before {
-  background: #0099EE; }
-
-#header dt.selected {
-  color: #0099EE; }
+  #header dl dt:before {
+    display: block;
+    background: #7C7C7C;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    line-height: 30px;
+    color: white;
+    margin: 0 auto; }
+  #header dl dt:after {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 5px;
+    background: #f0f0f0;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    z-index: -1; }
+  #header dl dt:last-of-type:after {
+    display: none; }
+  #header dl dt.selected:before {
+    background: #0099EE; }
+  #header dl dt.selected {
+    color: #0099EE; }
 
 #header dl dt[id="step-1"]:before {
   content: "1"; }
@@ -83,17 +81,34 @@ body {
 .thumbnail {
   background: #e8e8e8;
   border: 3px solid #e8e8e8; }
+  .thumbnail:hover {
+    border: 3px solid #d7d7d7 !important; }
+  .thumbnail.selected, .thumbnail.selected:hover {
+    border: 3px solid #0099EE !important; }
 
-.thumbnail:hover {
-  border: 3px solid #d7d7d7 !important; }
+.well {
+  min-height: 200px; }
+  .well > img {
+    margin: 50px auto;
+    display: block; }
 
-.thumbnail.selected, thumbnail.selected:hover {
-  border: 3px solid #0099EE !important; }
+.pokemon_type, .label-default {
+  margin-left: 5px; }
+
+#ex1Slider .slider-selection {
+  background: #BABABA; }
+
+.input-row > label {
+  width: 100%;
+  color: #7C7C7C; }
 
 .input-group {
   margin-bottom: 20px; }
 
 .no-margin {
   margin: 0; }
+
+.input-row {
+  margin: 20px 0 0; }
 
 /*# sourceMappingURL=custom.css.map */
