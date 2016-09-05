@@ -74,7 +74,7 @@ body {
     right: 15px; }
 
 .pokemon-wrapper {
-  max-width: 960px;
+  /*max-width: 960px;*/
   margin: 0 auto;
   margin-top: 100px; }
 

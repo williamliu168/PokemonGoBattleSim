@@ -20,6 +20,7 @@
             <dt id="step-4" class="col-md-2">Simulate</dt>
         </dl>
     </nav>
+
     <?php
         $id = $_GET["id"];
         if ($id==0)
@@ -30,13 +31,14 @@
         list($name,$type1,$type2,$bAtk,$bDef,$bSta)= $host->data->getBasicData($id);
     ?>
     
-    <form>
+    <form action="step_3.php" method="get">
     <div class="wrapper pokemon-wrapper">
     <div class="row no-margin">
 
     <?php
         //Display Pokemon Image on the left
         echo "<div class='col-xs-12 col-sm-6'><div class='well'><img src='./img/_50_gif/$id.gif' alt='pokemon_img'></div></div>";
+        echo "<input type='hidden' name='id' value='$id'>";
 
         //Display Pokemon Info and Customization on the right
         echo "<div class='col-xs-12 col-sm-6'><div class='well'>";
@@ -57,18 +59,19 @@
             // Start of Customization
             // 1. Trainer Level Selector
             list($qm,$oqm,$ss,$oss) = $host->data->getSkillData($id);
-            echo "<div class='row input-row'><label>Trainer Level</label><input id='ex1' data-slider-id='ex1Slider' type='text' data-slider-min='1' data-slider-max='40' data-slider-step='1' data-slider-value='10'/></div>";
+            echo "<div class='row input-row'><label>Trainer Level</label><input id='ex1' data-slider-id='ex1Slider' type='text' name ='trainer_level' data-slider-min='1' data-slider-max='40' data-slider-step='1' data-slider-value='10'/></div>";
 
             // 2. Quick Move Selector
             echo "<div class='row input-row'><label>Quick Moves</label><div class='btn-group' data-toggle='buttons'>";
             for($x=0; $x<count($qm); $x++) {
                 echo "<label class='btn btn-default'>
-                    <input type='radio' name='options' id='option2' autocomplete='off'>$qm[$x]
+                    <input type='radio' name='qm' id='option2' value='$qm[$x]' autocomplete='on'>$qm[$x]
                     </label>";
             }
             for ($x=0; $x<count($oqm); $x++) {
-                echo "<label class='btn btn-defalt'>
-                    <input type='radio' name='options' id='option2' autocomplete='off'>$oqm<span class='label label-default'>Ex</span>[$x]
+                echo "<label class='btn btn-default'>
+                    <input type='radio' name='oqm' id='option2' value='$oqm[$x]'>$oqm[$x]
+                    <span class='label label-default'>Ex</span>
                     </label>";
             }
             echo "</div></div>";
@@ -77,12 +80,12 @@
             echo "<div class='row input-row'><label>Special Moves</label><div class='btn-group' data-toggle='buttons'>";
             for($x=0; $x<count($ss); $x++) {
                 echo "<label class='btn btn-default'>
-                    <input type='radio' name='options' id='option2' autocomplete='off'>$ss[$x]
+                    <input type='radio' name='ss' id='option2' value='$ss[$x]'>$ss[$x]
                     </label>";
             }
             for ($x=0; $x<count($oss); $x++) {
                 echo "<label class='btn btn-default'>
-                    <input type='radio' name='options' id='option2' autocomplete='off'>$oss<span class='label label-default'>Ex</span>[$x]
+                    <input type='radio' name='oss' id='option2' value='$oss[$x]'>$oss<span class='label label-default'>Ex</span>[$x]
                     </label>";
             }
             echo "</div></div>";
@@ -103,7 +106,7 @@
     </div>
 
     <!-- Back and Next Floating Buttons -->
-    <a href="step_1.php" id="back" class="btn nav-btn ready" type="submit">
+    <a href="step_1.php" id="back" class="btn nav-btn ready">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     </a>
     <button id="next" class="btn nav-btn" type="submit">
