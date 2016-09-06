@@ -1,5 +1,4 @@
 ## PokemonGoBattleSim
-test url: http://pogobattlesim.coolpage.biz/test_index.php
 
 ### Table of Contents
 - [Features](#features)
