@@ -46,11 +46,12 @@
         if ($type2) {
             echo "<img class='pokemon_type' src=./img/elements/$type1.png>";
             echo "<img class='pokemon_type' src=./img/elements/$type2.png>";
-            echo "</h2>";
         }
         else
         {
-            echo "<img class='pokemon_type' src=./img/elements/$type1.png></h2>";
+            echo "<img class='pokemon_type' src=./img/elements/$type1.png>";
+        }
+        echo "</h2>";
 
             //echo 'base Atk: '.$bAtk.'<br>';
             //echo 'base Def: '.$bDef.'<br>';
@@ -63,14 +64,16 @@
 
             // 2. Quick Move Selector
             echo "<div class='row input-row'><label>Quick Moves</label><div class='btn-group' data-toggle='buttons'>";
-            for($x=0; $x<count($qm); $x++) {
+            foreach ($qm as $name) {
+                $name = ucwords($name);
                 echo "<label class='btn btn-default'>
-                    <input type='radio' name='qm' id='option2' value='$qm[$x]' autocomplete='on'>$qm[$x]
+                    <input type='radio' name='qm' id='option2' value='$name' autocomplete='on'>$name
                     </label>";
             }
-            for ($x=0; $x<count($oqm); $x++) {
+            foreach ($oqm as $name) {
+                $name = ucwords($name);
                 echo "<label class='btn btn-default'>
-                    <input type='radio' name='oqm' id='option2' value='$oqm[$x]'>$oqm[$x]
+                    <input type='radio' name='oqm' id='option2' value='$name'>$name
                     <span class='label label-default'>Ex</span>
                     </label>";
             }
@@ -78,14 +81,17 @@
 
             // 3. Special Move
             echo "<div class='row input-row'><label>Special Moves</label><div class='btn-group' data-toggle='buttons'>";
-            for($x=0; $x<count($ss); $x++) {
+            foreach($ss as $name) {
+                $name = ucwords($name);
                 echo "<label class='btn btn-default'>
-                    <input type='radio' name='ss' id='option2' value='$ss[$x]'>$ss[$x]
+                    <input type='radio' name='ss' id='option2' value='$name'>$name
                     </label>";
             }
-            for ($x=0; $x<count($oss); $x++) {
+            foreach ($oss as $name)
+            {
+                $name = ucwords($name);
                 echo "<label class='btn btn-default'>
-                    <input type='radio' name='oss' id='option2' value='$oss[$x]'>$oss<span class='label label-default'>Ex</span>[$x]
+                    <input type='radio' name='oss' id='option2' value='$name'>$name<span class='label label-default'>Ex</span>
                     </label>";
             }
             echo "</div></div>";
@@ -99,7 +105,6 @@
             $stats_table = $host->data->pokemon_stats;
             
             $skills_table = $host->data->pokemon_skills;
-        }
         echo "</div></div>";
     ?>
     </div>
