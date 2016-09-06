@@ -1,4 +1,5 @@
 <?php require('header.php'); ?>
+<?php require('mon.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,22 +35,10 @@
             $qm = $_GET["qm"];
         }
 
-        $oqm = '';
-        if (!empty($_GET['oqm']))
-        {
-            $oqm = $_GET["oqm"];
-        }
-
         $ss = '';
         if (!empty($_GET['ss']))
         {
             $ss = $_GET["ss"];
-        }
-
-        $oss = '';
-        if (!empty($_GET['oss']))
-        {
-            $oss = $_GET["oss"];
         }
 
         $opponent_id = '';
@@ -58,13 +47,12 @@
             $opponent_id = $_GET["opponent_id"];
         }
 
-        echo    "$id<br>
-                $trainer_level<br>
-                $qm<br>
-                $oqm<br>
-                $ss<br>
-                $oss<br>
-                $opponent_id";
+        $lv = ($trainer_level+1)*2;
+        $attacker = new Pokemon($host->data,$id,$qm,$ss,$lv);
+        $defender_allThis = $host->GenerateSpecie($host->data->idToName($opponent_id),$lv);
+        
+        $isGym = TRUE;  //todo
+        $host->arena->oneVsSpecie($attacker,$defender_allThis,$isGym);
 
     ?>
     </div>

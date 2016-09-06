@@ -1,7 +1,7 @@
 <?php
-include 'qm.php';
-include 'ss.php';
-include 'damage.php';
+require_once 'qm.php';
+require_once 'ss.php';
+require_once 'damage.php';
 
 class Pokemon
 {
@@ -22,8 +22,8 @@ class Pokemon
 
         $this->getBasicData();
 
-        $this->qm = new Qm($this->data,$qm);
-        $this->ss = new Ss($this->data,$ss);
+        $this->qm = new Qm($this->data,strtolower($qm));
+        $this->ss = new Ss($this->data,strtolower($ss));
         $this->setStab();
 
         $this->level = $level;
@@ -71,7 +71,7 @@ class Pokemon
 
         $damage = new Damage();
         if ($this->action=='standby'){
-            if($this->fury+$this->ss->furyCost>=0) // have enough fury for special move_uploaded_file
+            if(($this->fury+$this->ss->furyCost)>=0) // have enough fury for special move_uploaded_file
             {
                 $dump.='[pokemon] '.$this->name.' start '.$this->ss->nameWithStab().'<BR>';
                 $this->action='ss';
@@ -112,9 +112,6 @@ class Pokemon
 					$this->action_progress=0.0;
 				}
             }
-            else{
-                $this->action_progress+=$tick;
-            }
         }
         elseif ($this->action=='ss')
         {
@@ -131,11 +128,10 @@ class Pokemon
                 $this->action='standby';
                 $this->action_progress=0.0;
             }
-            else
-            {
-                $this->action_progress+=$tick;
-            }
         }
+        
+        // whatever u are doing, action progress++
+        $this->action_progress+=$tick;
         
         return array($damage,$dump);
     }
@@ -214,25 +210,25 @@ class Pokemon
         $dict = $this->data->type_table[$attackType];
         $multiplier1 = 1.0;
         $multiplier2 = 1.0;
-        if ($this->type1!='none') {
-            $multiplier1 = dict[$this->type1];
+        if ($this->type1!='none' && $this->type1!='') {
+            $multiplier1 = $dict[$this->type1];
 		}
-        if ($this->type2!='none') {
-            $multiplier2 = dict[$this->type2];
+        if ($this->type2!='none' && $this->type2!='') {
+            $multiplier2 = $dict[$this->type2];
 		}
         $result = $multiplier1*$multiplier2;
-        echo "$attackType->".$this->type1."|".$this->type2." x$result<br>";
+        // echo "$attackType->".$this->type1."|".$this->type2." x$result<br>";
         return $result;
 	}
 
     public function getCritMultiplier($damage) {
         $chance = $damage->critChance;
         if ($chance<0.0 or $chance>100.0) {
-            echo "crit chance out of range: $chance";
+            // echo "[error] crit chance out of range: $chance";
             return 1.0;
 		}
         $adj = (1.0-$chance)*1.0+$chance*$this->crit;
-        echo "$chance% to crit ~= x$adj";
+        // echo "$chance% to crit ~= x$adj";
         return $adj;
 	}
 	

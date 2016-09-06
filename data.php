@@ -74,6 +74,17 @@ class Data
         return 0;
     }
     
+    public function idToName($id){
+        foreach($this->pokemon_stats as $dict)
+        {
+            if ($dict['id']==$id)
+            {
+                return $dict['name'];
+            }
+        }
+        return "unknown";
+    }
+    
     public function getQmData($name){
         foreach($this->skill_qm as $dict){
             if ($dict['name']==$name){

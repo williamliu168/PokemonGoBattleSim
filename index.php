@@ -23,9 +23,7 @@ Pokemon name: <input type="text" name="name"><br>
 
 <p>
 <?php
-
     include 'mon.php';
-
 /*
     $pikachu = new Pokemon($host->data,25,"thunder shock","thunderbolt", 80);
     

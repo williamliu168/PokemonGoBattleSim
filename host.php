@@ -22,6 +22,30 @@ class Host
 		
     }
     
+    public function GenerateSpecie($name,$lv)
+    {
+        $name=strtolower($name);
+        $result = array();
+        foreach($this->data->pokemon_skills as $dict)
+        {
+            if($dict['name']==$name)
+            {
+                $id = $dict['id'];
+                $qm_list = $dict['qm'];
+                $ss_list = $dict['ss'];
+                foreach($qm_list as $qm)
+                {
+                    foreach($ss_list as $ss)
+                    {
+                        $mon = new Pokemon($this->data,$id,$qm,$ss,$lv);
+                        array_push($result,$mon);
+                    }
+                }
+            }
+        }
+        echo count($result)." possible combinations of $name<br>";
+        return $result;
+    }
 
 }
 ?>

@@ -11,13 +11,12 @@ class Arena
 	{
 		$b->promoteGymMon();
 
-		oneVsOne($a,$b);
+		$this->oneVsOne($a,$b);
 
 		$b->demoteGymMon();
 	}
 
     public function oneVsOne($a,$b){
-        echo "[arena] ooo 1 vs 1 ooo <BR>";
         echo "[arena] ".$a->dump()." vs ".$b->dump()."<BR>";
 
         $a->heal();
@@ -28,8 +27,7 @@ class Arena
         $ms = 0.0;
         $tick = 50.0;
         $dump = '';
-        while ($ms<=120000.0) {
-            $dump.=$ms.'<BR>';
+        while ($ms<=100000.0) {
             list($dmg_a,$dump_a) = $a->fight($tick);
             list($dmg_b,$dump_b) = $b->fight($tick);
             $dump.=$dump_a.$dump_b;
@@ -62,5 +60,20 @@ class Arena
             echo '[arena] '.$b->name.'[hp:'.$b->hp.'/'.$b->maxHp.'] WIN!<BR>';
         }
         return $ms;
+    }
+    
+    public function oneVsSpecie($a,$b_allThis,$isGym)
+    {
+        foreach($b_allThis as $b)
+        {
+            if ($isGym)
+            {
+                $this->oneVsGym($a,$b);
+            }
+            else
+            {
+                $this->oneVsOne($a,$b);
+            }
+        }
     }
 }
