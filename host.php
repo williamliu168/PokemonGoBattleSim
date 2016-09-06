@@ -43,7 +43,6 @@ class Host
                 }
             }
         }
-        echo count($result)." possible combinations of $name<br>";
         return $result;
     }
 

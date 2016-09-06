@@ -1,9 +1,9 @@
 <?php
+require_once('battleResult.php');
 
 class Arena
 {
     public function __construct($data) {
-        echo "[arena] Initiating... <BR>";
         $this->data = $data;
     }
 	
@@ -11,69 +11,67 @@ class Arena
 	{
 		$b->promoteGymMon();
 
-		$this->oneVsOne($a,$b);
+		$result = $this->oneVsOne($a,$b);
 
 		$b->demoteGymMon();
+		
+		return $result;
 	}
 
     public function oneVsOne($a,$b){
-        echo "[arena] ".$a->dump()." vs ".$b->dump()."<BR>";
-
         $a->heal();
-        echo "[arena] healed pokemon1 to full health<BR>";
+        // echo "[arena] healed pokemon1 to full health<BR>";
         $b->heal();
-        echo "[arena] healed pokemon2 to full health<BR>";
-        
+        // echo "[arena] healed pokemon2 to full health<BR>";
+
+		$result = new BattleResult($a,$b);
+        $result->battle_title = "Battle start: ".$a->dump()." vs ".$b->dump()."<BR>";
+
         $ms = 0.0;
         $tick = 50.0;
+
         $dump = '';
         while ($ms<=100000.0) {
-            list($dmg_a,$dump_a) = $a->fight($tick);
-            list($dmg_b,$dump_b) = $b->fight($tick);
+			$result->current_ms = $ms;
+            list($dmg_a,$dump_a) = $a->fight($tick,$result);
+            list($dmg_b,$dump_b) = $b->fight($tick,$result);
             $dump.=$dump_a.$dump_b;
             
             if ($dmg_a->power>0){
-                $dump.=$b->takeDamage($dmg_a);
+                $dump.=$b->takeDamage($dmg_a,$result);
             }
             if ($dmg_b->power>0){
-                $dump.=$a->takeDamage($dmg_b);
+                $dump.=$a->takeDamage($dmg_b,$result);
             }
             
             if (($a->state=='dead') or ($b->state=='dead'))
             {
+				$result->recordResult();
                 break;
             }
-            
-            
             $ms+=$tick;
         }
         echo $dump;
-        
-        echo "[arena] ooo Battle Ended (lasted ".(int)($ms/1000)."s) ooo<BR>";
-        if ($a->state=='dead' and $b->state=='dead'){
-            echo '[arena] DRAW! Both pokemon got knocked out at the same time!<BR>';
-        }
-        elseif ($a->state=='alive'){
-            echo '[arena] '.$a->name.'[hp:'.$a->hp.'/'.$a->maxHp.'] WIN!<BR>';
-        }
-        elseif ($b->state=='alive'){
-            echo '[arena] '.$b->name.'[hp:'.$b->hp.'/'.$b->maxHp.'] WIN!<BR>';
-        }
-        return $ms;
+
+        return $result;
     }
     
     public function oneVsSpecie($a,$b_allThis,$isGym)
     {
+		$result = array();
         foreach($b_allThis as $b)
         {
             if ($isGym)
             {
-                $this->oneVsGym($a,$b);
+				$br = $this->oneVsGym($a,$b);
+                array_push($result, $br);
             }
             else
             {
-                $this->oneVsOne($a,$b);
+				$br = $this->oneVsOne($a,$b);
+                array_push($result, $br);
             }
         }
+		return $result;	// array of BattleResult
     }
 }

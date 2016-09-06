@@ -1,5 +1,6 @@
 <?php require('header.php'); ?>
-<?php require('mon.php'); ?>
+<?php require_once('mon.php'); ?>
+<?php //require_once('battleResult.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,12 +48,27 @@
             $opponent_id = $_GET["opponent_id"];
         }
 
-        $lv = ($trainer_level+1)*2;
+        $lv = ($trainer_level)*2;
         $attacker = new Pokemon($host->data,$id,$qm,$ss,$lv);
+		
         $defender_allThis = $host->GenerateSpecie($host->data->idToName($opponent_id),$lv);
         
-        $isGym = TRUE;  //todo
-        $host->arena->oneVsSpecie($attacker,$defender_allThis,$isGym);
+        $isGym = TRUE;  //todo - step 3, user should be able to choose if its opponent is from gym or is of a player's
+		
+		// this line calls for back-end calculations
+        $result = $host->arena->oneVsSpecie($attacker,$defender_allThis,$isGym);
+		// result is an array of BattleResult, see class BattleResult from battleResult.php
+		
+        $wins = 0.0;
+		foreach($result as $br)
+		{
+            $wins+=$br->a_win;
+			echo $br->battle_title;
+            echo $br->battle_result;
+		}
+        $winRate = $wins/sizeof($result);
+        echo "Win Rate = ".round($winRate*100,1)."%<br>";
+		
 
     ?>
     </div>

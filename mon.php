@@ -15,7 +15,7 @@ class Pokemon
     public $bSta;
     
     public function __construct($data,$id,$qm,$ss,$level=80) {
-        echo "[pokemon] Creating: ";
+        // echo "[pokemon] Creating: ";
         
         $this->data = $data;
         $this->id = $id;
@@ -28,7 +28,7 @@ class Pokemon
 
         $this->level = $level;
 
-        echo $this->name." lv.".$this->level." [".$this->qm->name."|".$this->ss->name."] ";
+        // echo $this->name." lv.".$this->level." [".$this->qm->name."|".$this->ss->name."] ";
 
         $this->cpm = $this->data->get_cpm($this->level);
         
@@ -40,11 +40,11 @@ class Pokemon
         
 		$this->maxFury=100.0;
         $this->maxHp = (int)max(10,floor($this->cSta));
-        echo "hp: ".$this->maxHp." ";
+        // echo "hp: ".$this->maxHp." ";
         $this->cp=(int)max(10, floor(($this->cAtk)*sqrt($this->cDef)*sqrt($this->cSta)/10.0));
-        echo "cp: ".$this->cp." ";
+        // echo "cp: ".$this->cp." ";
 
-        echo "<BR>";
+        // echo "<BR>";
 
 		// for gym
 		$this->isGymMon = FALSE;
@@ -66,20 +66,20 @@ class Pokemon
         $this->heal();
     }
     
-    public function fight($tick) {
+    public function fight($tick,$result) {
         $dump = "";
 
         $damage = new Damage();
         if ($this->action=='standby'){
             if(($this->fury+$this->ss->furyCost)>=0) // have enough fury for special move_uploaded_file
             {
-                $dump.='[pokemon] '.$this->name.' start '.$this->ss->nameWithStab().'<BR>';
+                $result->bLog( '[pokemon] '.$this->name.' start '.$this->ss->nameWithStab() );
                 $this->action='ss';
                 $this->action_progress=0.0;
             }
             else
             {
-                $dump.='[pokemon] '.$this->name.' start '.$this->qm->nameWithStab().'<BR>';
+                $result->bLog( '[pokemon] '.$this->name.' start '.$this->qm->nameWithStab() );
                 $this->action='qm';
                 $this->action_progress=0.0;
             }
@@ -100,7 +100,7 @@ class Pokemon
                 $damage = new Damage($this->cAtk,$this->qm->power,$this->qm->type,0.0,$this->qm->stab);
                 $oldFury = $this->fury;
                 $this->gainFury($this->qm->furyGain);
-                $dump.='[pokemon] '.$this->name.' performed '.$this->qm->nameWithStab().'<BR>';
+                $result->bLog( '[pokemon] '.$this->name.' performed '.$this->qm->nameWithStab() );
 
 				if ($this->isGymMon)
 				{
@@ -136,7 +136,7 @@ class Pokemon
         return array($damage,$dump);
     }
     
-    public function takeDamage($damage)
+    public function takeDamage($damage,$result)
     {
         $dump='';
         
@@ -161,8 +161,7 @@ class Pokemon
         $this->hp-=$hpLoss;
         $this->gainFury($hpLoss/2);
 
-        $dump.='[pokemon] '.$this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']<BR>';
-        // todo - fury gain with hp loss
+        $result->bLog( '[pokemon] '.$this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']' );
         
         $this->checkDeath();
         return $dump;
@@ -170,6 +169,7 @@ class Pokemon
     
     private function checkDeath(){
         if ($this->hp<=0){
+			$this->hp=0;
             $this->state='dead';
             $this->fury=0;
         }
@@ -201,7 +201,7 @@ class Pokemon
     }
     
     public function dump() {
-        $dump = ucfirst($this->name).'['.$this->qm->nameWithStab().'|'.$this->ss->nameWithStab().']';
+        $dump = ucwords($this->name).'['.$this->qm->nameWithStab().'|'.$this->ss->nameWithStab().']';
         return $dump;
     }
 	

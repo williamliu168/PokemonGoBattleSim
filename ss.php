@@ -15,7 +15,7 @@ class Ss
     }
     
     public function nameWithStab(){
-        $dump=ucfirst($this->name);
+        $dump=ucwords($this->name);
         if($this->stab){
             $dump.='+';
         }
