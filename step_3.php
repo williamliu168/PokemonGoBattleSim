@@ -29,6 +29,7 @@
         echo "<input type='hidden' name='id' value='$id'>";
         $trainer_level = $_GET["trainer_level"];
         echo "<input type='hidden' name='trainer_level' value='$trainer_level'>";
+        $_SESSION['trainer_level'] = $trainer_level;    // set in session to remeber
 
         $qm = '';
         if (!empty($_GET['qm']))

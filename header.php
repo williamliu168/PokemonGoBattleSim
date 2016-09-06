@@ -18,6 +18,14 @@ else {
     $_SESSION['host']=$host;
 }
 
+// *** trainerLevel ***
+if (isset($_SESSION['trainer_level'])) {
+    $trainer_level = $_SESSION['trainer_level'];
+}
+else {
+}
+
+
 require_once('utils.php');
 
 

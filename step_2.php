@@ -60,7 +60,11 @@
             // Start of Customization
             // 1. Trainer Level Selector
             list($qm,$oqm,$ss,$oss) = $host->data->getSkillData($id);
-            echo "<div class='row input-row'><label>Trainer Level</label><input id='ex1' data-slider-id='ex1Slider' type='text' name ='trainer_level' data-slider-min='1' data-slider-max='40' data-slider-step='1' data-slider-value='10'/></div>";
+            if (!isset($trainer_level))
+            {
+                $trainer_level = 40;
+            }
+            echo "<div class='row input-row'><label>Trainer Level</label><input id='ex1' data-slider-id='ex1Slider' type='text' name ='trainer_level' data-slider-min='1' data-slider-max='40' data-slider-step='1' data-slider-value='$trainer_level'/></div>";
 
             // 2. Quick Move Selector
             echo "<div class='row input-row'><label>Quick Moves</label><div class='btn-group' data-toggle='buttons'>";
