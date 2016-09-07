@@ -19,8 +19,8 @@ Pokemon name: <input type="text" name="name"><br>
 <input type="submit">
 </form>
 
-<a href="example_login.php">example_login</a>
-<a href="step_1.php">Start the Sim!</a>
+<a href="example_login.php">example_login</a><br>
+<a href="step_1.php">Start the Sim!</a><br>
 
 <p>
 <?php
