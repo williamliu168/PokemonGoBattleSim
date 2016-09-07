@@ -30,6 +30,8 @@ class UserData
 
     public function usernameExist($db,$username)
     {
+        $this->conn2db($db);
+
         $query = 'SELECT * FROM account_info WHERE username="'.$username.'"';
 		$dbresult = $db->query($query);
         if(empty($dbresult))
@@ -64,6 +66,8 @@ class UserData
 
     public function register($db,$reg_info)
     {
+        $this->conn2db($db);
+        
         $username = $reg_info['username'];
         $password = $reg_info['password'];
         $email = $reg_info['email'];

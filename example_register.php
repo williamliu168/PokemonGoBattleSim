@@ -18,14 +18,14 @@ if(!empty($_POST['username']) && !empty($_POST['password']))
     $reg_info['password'] = md5($_POST['password']);
     $reg_info['email'] = $_POST['email'];
 
-    $exist = $userdata->usernameExist($reg_info['username']);
+    $exist = $host->userData->usernameExist($db,$reg_info['username']);
     if ($exist)
     {
     	echo 'Error! username is taken. Please go back and try again.<br>';
     }
     else
     {
-    	$success = $userdata->register($reg_info);
+    	$success = $host->userData->register($db,$reg_info);
     	if ($success)
     	{
     		echo 'Success! your account was created. Please <a href=example_login.php>click here to login</a><br>';
