@@ -25,7 +25,8 @@
         <!-- Main Content -->
     <form action="step_4.php" method="get">
     <div class="wrapper pokemon-wrapper">
-    <div class="row no-margin">
+    <div class="row no-margin" style="max-width:960px; margin: 0 auto;">
+
     <?php
         $id = $_GET["id"];
         $trainer_level = $_GET["trainer_level"];
@@ -58,16 +59,25 @@
 		// this line calls for back-end calculations
         $result = $host->arena->oneVsSpecie($attacker,$defender_allThis,$isGym);
 		// result is an array of BattleResult, see class BattleResult from battleResult.php
-		
+
+        /*echo "<div class='col-xs-12 col-sm-6'><img src='./img/_50_gif/$id.gif' alt='pokemon_img'></div>";
+        echo "<div class='col-xs-12 col-sm-6'><img src='./img/_50_gif/$opponent_id.gif' alt='pokemon_img'></div>";*/
+
         $wins = 0.0;
 		foreach($result as $br)
 		{
             $wins+=$br->a_win;
-			echo $br->battle_title;
-            echo $br->battle_result;
+            echo "<div class='panel panel-default'>
+                    <div class='panel-body'>
+                        <div class='col-xs-6'><img src='./img/_50_gif/$id.gif' alt='pokemon_img'></div>
+                        <div class='col-xs-6'><img src='./img/_50_gif/$opponent_id.gif' alt='pokemon_img'></div>
+                    </div>
+                    $br->battle_title
+                    $br->battle_result
+                </div>";
 		}
         $winRate = $wins/sizeof($result);
-        echo "Win Rate = ".round($winRate*100,1)."%<br>";
+        echo "<h2>Win Rate = ".round($winRate*100,1)."%</h2>";
 		
 
     ?>
