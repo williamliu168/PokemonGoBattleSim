@@ -28,8 +28,11 @@ class BattleResult
         $this->battle_log[$index] = $line;
     }
 
-    public function recordResult()
+    public function recordResult($a,$b)
     {
+        $this->a=clone($a);
+        $this->b=clone($b);
+        
         if($this->a->state=='dead' and $this->b->state=='dead')
         {
             $this->a_win = 0.5;

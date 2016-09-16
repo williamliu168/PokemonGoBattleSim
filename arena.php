@@ -25,7 +25,7 @@ class Arena
         // echo "[arena] healed pokemon2 to full health<BR>";
 
 		$result = new BattleResult($a,$b);
-        $result->battle_title = "Battle start: ".$a->dump()." vs ".$b->dump()."<BR>";
+        $result->battle_title = $a->dump()." vs ".$b->dump()."<BR>";
 
         $ms = 0.0;
         $tick = 50.0;
@@ -46,7 +46,7 @@ class Arena
             
             if (($a->state=='dead') or ($b->state=='dead'))
             {
-				$result->recordResult();
+				$result->recordResult($a,$b);
                 break;
             }
             $ms+=$tick;
