@@ -71,7 +71,10 @@
                     <div class='panel-body'>
                         <div class='col-xs-6'><img src='./img/_50_gif/$id.gif' alt='pokemon_img'></div>
                         <div class='col-xs-6'><img src='./img/_50_gif/$opponent_id.gif' alt='pokemon_img'></div>
-                    </div>
+                    </div>";
+            echo "<div class='col-xs-6'>".$br->a->hp."/".$br->a->maxHp . "<br>" . hpbar($br->a->hp,$br->a->maxHp) . "</div>";
+            echo "<div class='col-xs-6'>".$br->b->hp."/".$br->b->maxHp . "<br>" . hpbar($br->b->hp,$br->b->maxHp) . "</div>";
+            echo"
                     $br->battle_title
                     $br->battle_result
                 </div>";
