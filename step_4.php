@@ -78,6 +78,9 @@
                     $br->battle_title
                     $br->battle_result
                 </div>";
+
+            echo print_r($br->battle_log)."<br>";
+            echo "";
 		}
         $winRate = $wins/sizeof($result);
         echo "<h2>Win Rate = ".round($winRate*100,1)."%</h2>";

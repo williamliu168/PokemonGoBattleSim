@@ -29,19 +29,19 @@
 	</ul>
 
 	<h3>Basic battle</h3>
+	<li>Delay in between any attacks - 50ms (I call it the "finger time")</li>
 	<h4>Damage mechanics</h4>
 		<p>Well explained by <a href="https://pokemongo.gamepress.gg/damage-mechanics">[gamepress.gg] damage-mechanics</a></p>
 	<ul>
 		<li>HpLoss = floor(0.5*(ATK/DEF)x(Power)x(Stab)x(Type)+1</li>
-		<li>Delay in between any attacks - 50ms (I call it the "finger time")</li>
-		<li>2 hp loss = 1 fury gain</li>
+		<li>0.5 fury gain for every 1 hp loss</li>
 		<li>Crit is currently not included</li>
 	</ul>
 
 	<h3>Gym battle</h3>
 	<p><a href="https://www.reddit.com/user/homu">homu</a>'s <a href="https://www.reddit.com/r/TheSilphRoad/comments/4wzll7/testing_gym_combat_misconceptions/">thread</a> gives excellent information on gym battles</p>
 	<ul>
-		<li>Defender has double the max hp</li>
+		<li>Defender max hp x2</li>
 		<li>Defender max fury increases from 100 to 200</li>
 		<li>Defender quick move duration +2s. Also refer to the 'Defender Attack Delay' section of </li>
 	</ul>
