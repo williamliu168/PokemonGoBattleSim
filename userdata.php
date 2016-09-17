@@ -6,7 +6,6 @@ class UserData
 	private $loginAs;
 
     public function __construct() {
-        echo "[userData] constructor<br>";
 		$this->loginState = FALSE;
 		$this->loginAs = '';
     }

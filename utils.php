@@ -10,6 +10,16 @@ function generateRandomGuestName($data) {
 	return $result;
 }
 
+function IsNullOrEmptyString($word){
+    if (isset($word))
+    {
+        return trim($word)==='';
+    }
+    else{
+        return false;
+    }
+}
+
 // taken from: http://webdevrefinery.com/forums/topic/11040-health-bar/
 function hpbar($current, $max) {
     $percent = round(($current/$max)*100);
