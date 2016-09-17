@@ -9,6 +9,7 @@ class Data
     public $skill_qm;
     public $skill_ss;
     public $cpm;
+    public $pokemon_names;
 
     public function __construct() {
         echo "[data] building db object...<br>";
@@ -36,12 +37,16 @@ class Data
 		
 		$this->db = $db;
 		
+        // primary data
         $this->read_pokemon_stats();
         $this->read_pokemon_skills();
         $this->read_type_table();
         $this->read_qm();
         $this->read_ss();
         $this->read_cpm();
+        
+        // secondary data
+        $this->build_pokemon_names();
 
 		$this->db = null;	// the data object is most likely stored in the session, but db pdo cannot be stored, so set null
     }
@@ -296,6 +301,16 @@ class Data
         }
         
         $this->cpm = $result;
+    }
+    
+    public function build_pokemon_names()
+    {
+        $result = array();
+        foreach($this->pokemon_stats as $mon)
+        {
+            array_push($result,strtolower($mon['name']));
+        }
+        $this->pokemon_names = $result;
     }
 }
 ?>
