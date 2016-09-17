@@ -11,7 +11,7 @@ if(IsNullOrEmptyString($keyword))
     $displayAll = true;
 }
 
-if (!is_array($values) && !is_object($values))
+if (!is_array($list) && !is_object($list))
 {
     exit;
 }
