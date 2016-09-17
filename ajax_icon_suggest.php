@@ -11,6 +11,11 @@ if(IsNullOrEmptyString($keyword))
     $displayAll = true;
 }
 
+if (!is_array($values) && !is_object($values))
+{
+    exit;
+}
+
 foreach ($list as $item) {
     if ($displayAll || strpos($item,$keyword)!==false)
     {
