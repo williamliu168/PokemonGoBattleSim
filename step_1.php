@@ -1,11 +1,27 @@
 <?php
     require_once('header.php');
+    
+    if(isset($_GET['type'])){
+        $type = $_GET['type'];
+        if ($type == 'gym')
+        {
+            $_SESSION['isGym'] = TRUE;
+        }
+        elseif ($type == 'pvp')
+        {
+            $_SESSION['isGym'] = FALSE;
+        }
+        else {
+            echo "mode type UNKNOWN<br>";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Play without Account</title>
+	<title> Pokemon Go Battle Simulator </title>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	
     <script src="js/search_suggest.js"></script>

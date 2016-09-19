@@ -20,7 +20,8 @@ Pokemon name: <input type="text" name="name"><br>
 </form>
 
 <a href="example_login.php">example_login</a><br>
-<a href="step_1.php">Start the Sim!</a><br>
+<a href="step_1.php?type=pvp">1 on 1 (PvP)</a><br>
+<a href="step_1.php?type=gym">1 on 1 (Gym)</a><br>
 
 <p>
 <?php

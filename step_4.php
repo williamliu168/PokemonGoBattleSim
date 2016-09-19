@@ -1,6 +1,8 @@
 <?php require('header.php'); ?>
 <?php require_once('mon.php'); ?>
-<?php //require_once('battleResult.php'); ?>
+<?php //require_once('battleResult.php'); 
+    $isGym = $_SESSION['isGym'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +32,8 @@
     <?php
         $id = $_GET["id"];
         $trainer_level = $_GET["trainer_level"];
+        $width=80;
+        $height=80;
 
         $qm = '';
         if (!empty($_GET['qm']))
@@ -53,26 +57,48 @@
         $attacker = new Pokemon($host->data,$id,$qm,$ss,$lv);
 		
         $defender_allThis = $host->GenerateSpecie($host->data->idToName($opponent_id),$lv);
-        
-        $isGym = TRUE;  //todo - step 3, user should be able to choose if its opponent is from gym or is of a player's
 		
 		// this line calls for back-end calculations
         $result = $host->arena->oneVsSpecie($attacker,$defender_allThis,$isGym);
+        
+        // pre-process results
         $wins = 0.0;
+        foreach($result as $br)
+		{
+            $wins+=$br->a_win;
+        }
+        
         $winRate = $wins/sizeof($result);
 
         //echo "<h2>Win Rate = ".round($winRate*100,1)."%</h2>";
 		// result is an array of BattleResult, see class BattleResult from battleResult.php
         echo "<div class='col-xs-5 col-xs-offset-1 well' style='position: fixed;'>
-            <img src='./img/icon_static_png/$id.png' alt='pokemon_img'>";
+            <img src='./img/icon_static_ico/$id.ico' alt='pokemon_img' height=$height width=$width>";
         echo "<h2 class='pokemon_name' style='text-align: center;'>$attacker->name";
-        echo "<img class='pokemon_type' src=./img/elements/$attacker->type1.png>";
-        echo "<img class='pokemon_type' src=./img/elements/$attacker->type2.png>";
+        if ($attacker->type2) {
+            echo "<img class='pokemon_type' src=./img/elements/$attacker->type1.png>";
+            echo "<img class='pokemon_type' src=./img/elements/$attacker->type2.png>";
+        }
+        else
+        {
+            echo "<img class='pokemon_type' src=./img/elements/$attacker->type1.png>";
+        }
         echo "</h2>";
         echo "<div class='row input-row display'><label>Quick Move</label>$qm</div>";
         echo "<div class='row input-row display'><label>Special Moves</label>$ss</div>";
-        echo "<p class='lead result text-center' >Your <strong class='pokemon_name'>$attacker->name</strong> has a ".round($winRate*100,1)."% chance to win against <strong class='pokemon_name' >defender name</strong></p>";
+        echo "<p class='lead result text-center' >Your <strong class='pokemon_name'>$attacker->name</strong> 
+        has a ".round($winRate*100,1)."% chance to win against <strong class='pokemon_name' >".$host->data->idToName($opponent_id)."</strong></p>";
+        if ($isGym)
+        {
+            echo "<p>Mode: Gym</p>";
+        }
+        else {
+            echo "<p>Mode: PvP</p>";
+        }
+        
+        
         echo "</div>";
+        // echo "<div class='help-tip'><p>Insert tooltip here.</p></div>";
 
         echo "<div class='col-xs-5 col-xs-offset-6'>";
 		foreach($result as $br)
@@ -88,10 +114,13 @@
             }
 
             echo "<div class='well'>
-                    <div class='col-xs-6 text-center'><img src='./img/icon_anime_gif/$id.gif' class='$a_status' alt='pokemon_img'>
-                    <br>".$br->a->hp."/".$br->a->maxHp.hpbar($br->a->hp,$br->a->maxHp)."<br>a->qm, a->ss</div>
+                    <div class='col-xs-6 text-center'>
+                    <img src='./img/icon_static_ico/$id.ico' class='$a_status' alt='pokemon_img' height=$height width=$width>
+                    <br>".$br->a->hp."/".$br->a->maxHp.hpbar($br->a->hp,$br->a->maxHp)."<br>".$br->a->qm->name.", ".$br->a->ss->name."</div>
 
-                    <div class='col-xs-6 text-center'><img src='./img/icon_anime_gif/$opponent_id.gif' class='$b_status'alt='pokemon_img'><br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>b->qm, b->ss</div>
+                    <div class='col-xs-6 text-center'>
+                    <img src='./img/icon_static_ico/$opponent_id.ico' class='$b_status'alt='pokemon_img' height=$height width=$width>
+                    <br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>".$br->b->qm->name.", ".$br->b->ss->name."</div>
                 </div>";
             
 
@@ -117,7 +146,7 @@
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     </a>
 
-    <a href='step_1.php' class='btn btn-primary ready' style='right: 15px; bottom: 15px; position: fixed;'>Play Again</a>
+    <a href='step_1.php' class='btn btn-primary ready' style='right: 15px; bottom: 15px; position: fixed;'>Restart</a>
     </form>
 
 </html>
