@@ -78,12 +78,20 @@
 		foreach($result as $br)
 		{
             $wins+=$br->a_win;
+            $a_status="";
+            if($br->a->hp == 0) {
+                $a_status = "dead";
+            }
+            $b_status="";
+            if($br->b->hp == 0) {
+                $b_status = "dead";
+            }
 
             echo "<div class='well'>
-                    <div class='col-xs-6 text-center'><img src='./img/icon_anime_gif/$id.gif' alt='pokemon_img'>
+                    <div class='col-xs-6 text-center'><img src='./img/icon_anime_gif/$id.gif' class='$a_status' alt='pokemon_img'>
                     <br>".$br->a->hp."/".$br->a->maxHp.hpbar($br->a->hp,$br->a->maxHp)."<br>a->qm, a->ss</div>
 
-                    <div class='col-xs-6 text-center'><img src='./img/icon_anime_gif/$opponent_id.gif' alt='pokemon_img'><br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>b->qm, b->ss</div>
+                    <div class='col-xs-6 text-center'><img src='./img/icon_anime_gif/$opponent_id.gif' class='$b_status'alt='pokemon_img'><br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>b->qm, b->ss</div>
                 </div>";
             
 
