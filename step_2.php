@@ -37,12 +37,12 @@
 
     <?php
         //Display Pokemon Image on the left
-        echo "<div class='col-xs-12 col-sm-6'><div class='well'><img src='./img/_50_gif/$id.gif' alt='pokemon_img'></div></div>";
+        echo "<div class='col-xs-12 col-sm-6'><div class='well'><img src='./img/icon_static_png/$id.png' alt='pokemon_img'></div></div>";
         echo "<input type='hidden' name='id' value='$id'>";
 
         //Display Pokemon Info and Customization on the right
         echo "<div class='col-xs-12 col-sm-6'><div class='well'>";
-        echo "<h2 style='text-transform: capitalize;'>$name";
+        echo "<h2 class='pokemon_name'>$name";
         if ($type2) {
             echo "<img class='pokemon_type' src=./img/elements/$type1.png>";
             echo "<img class='pokemon_type' src=./img/elements/$type2.png>";

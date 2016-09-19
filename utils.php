@@ -32,7 +32,7 @@ function hpbar($current, $max) {
     if ($percent <= 20) {
         $color = 'rgb(164,72,72)';
     }
-    return "<div style='border-radius: 10px; -webkit-box-shadow: inset 0 2px 5px #AAA; border: 1px solid; background: #FFF; width: 100px; height: 7px;'><div style='width: " . $percent . "%; background-color: " . $color . "; border-radius: 10px; height: 5px;'></div></div>";
+    return "<div class='hpbar' style='border-radius: 10px; -webkit-box-shadow: inset 0 2px 5px #AAA; border: 1px solid; background: #FFF; width: 100px; height: 7px;'><div style='width: " . $percent . "%; background-color: " . $color . "; border-radius: 10px; height: 5px;'></div></div>";
 }
 
 // taken from: http://webdevrefinery.com/forums/topic/11040-health-bar/

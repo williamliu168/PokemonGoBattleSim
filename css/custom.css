@@ -114,4 +114,24 @@ body {
 .panel-default {
   margin: 0 15px 15px; }
 
+.input-row.display {
+  max-width: 250px;
+  margin: 0 auto; }
+  .input-row.display > label {
+    width: 45%;
+    padding-right: 10px;
+    border-right: 1px solid #e3e3e3;
+    margin-right: 10px;
+    text-align: right; }
+
+.hpbar {
+  margin: auto; }
+
+.result {
+  margin: 30px auto;
+  max-width: 400px; }
+
+.pokemon_name {
+  text-transform: capitalize; }
+
 /*# sourceMappingURL=custom.css.map */

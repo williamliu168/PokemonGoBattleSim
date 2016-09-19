@@ -1,11 +1,14 @@
 $(document).ready(
+
 	function(){
+		//debugger;
 		var $backBtn = $('#back');
 		var $nextBtn = $('#next');
 		$backBtn.hide();
 		//$nextBtn.hide();
 
 	    $(".thumbnail").click(function(){
+	    	debugger;
 	    	if ($(this).hasClass("selected")) {
 	    		//If the onclick pokemon is already selected, then unselect it
 	    		$(this).toggleClass("selected");

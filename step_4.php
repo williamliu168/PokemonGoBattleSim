@@ -25,7 +25,7 @@
         <!-- Main Content -->
     <form action="step_4.php" method="get">
     <div class="wrapper pokemon-wrapper">
-    <div class="row no-margin" style="max-width:960px; margin: 0 auto;">
+    <div class="row no-margin" >
 
     <?php
         $id = $_GET["id"];
@@ -58,32 +58,44 @@
 		
 		// this line calls for back-end calculations
         $result = $host->arena->oneVsSpecie($attacker,$defender_allThis,$isGym);
-		// result is an array of BattleResult, see class BattleResult from battleResult.php
-
-        /*echo "<div class='col-xs-12 col-sm-6'><img src='./img/_50_gif/$id.gif' alt='pokemon_img'></div>";
-        echo "<div class='col-xs-12 col-sm-6'><img src='./img/_50_gif/$opponent_id.gif' alt='pokemon_img'></div>";*/
-
         $wins = 0.0;
+        $winRate = $wins/sizeof($result);
+
+        //echo "<h2>Win Rate = ".round($winRate*100,1)."%</h2>";
+		// result is an array of BattleResult, see class BattleResult from battleResult.php
+        echo "<div class='col-xs-5 col-xs-offset-1 well' style='position: fixed;'>
+            <img src='./img/icon_static_png/$id.png' alt='pokemon_img'>";
+        echo "<h2 class='pokemon_name' style='text-align: center;'>$attacker->name";
+        echo "<img class='pokemon_type' src=./img/elements/$attacker->type1.png>";
+        echo "<img class='pokemon_type' src=./img/elements/$attacker->type2.png>";
+        echo "</h2>";
+        echo "<div class='row input-row display'><label>Quick Move</label>$qm</div>";
+        echo "<div class='row input-row display'><label>Special Moves</label>$ss</div>";
+        echo "<p class='lead result text-center' >Your <strong class='pokemon_name'>$attacker->name</strong> has a ".round($winRate*100,1)."% chance to win against <strong class='pokemon_name' >defender name</strong></p>";
+        echo "</div>";
+
+        echo "<div class='col-xs-5 col-xs-offset-6'>";
 		foreach($result as $br)
 		{
             $wins+=$br->a_win;
-            echo "<div class='panel panel-default'>
-                    <div class='panel-body'>
-                        <div class='col-xs-6'><img src='./img/_50_gif/$id.gif' alt='pokemon_img'></div>
-                        <div class='col-xs-6'><img src='./img/_50_gif/$opponent_id.gif' alt='pokemon_img'></div>
-                    </div>";
-            echo "<div class='col-xs-6'>".$br->a->hp."/".$br->a->maxHp . "<br>" . hpbar($br->a->hp,$br->a->maxHp) . "</div>";
-            echo "<div class='col-xs-6'>".$br->b->hp."/".$br->b->maxHp . "<br>" . hpbar($br->b->hp,$br->b->maxHp) . "</div>";
-            echo"
-                    $br->battle_title
-                    $br->battle_result
-                </div>";
 
-            echo print_r($br->battle_log)."<br>";
-            echo "";
+            echo "<div class='well'>
+                    <div class='col-xs-6 text-center'><img src='./img/icon_anime_gif/$id.gif' alt='pokemon_img'>
+                    <br>".$br->a->hp."/".$br->a->maxHp.hpbar($br->a->hp,$br->a->maxHp)."<br>a->qm, a->ss</div>
+
+                    <div class='col-xs-6 text-center'><img src='./img/icon_anime_gif/$opponent_id.gif' alt='pokemon_img'><br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>b->qm, b->ss</div>
+                </div>";
+            
+
+            //echo "<div>".$br->a->hp."/".$br->a->maxHp . "<br>" . hpbar($br->a->hp,$br->a->maxHp) . "</div>";
+            //echo "<div>".$br->b->hp."/".$br->b->maxHp . "<br>" . hpbar($br->b->hp,$br->b->maxHp) . "</div>";
+            //echo" $br->battle_title$br->battle_result </div>";
+
+            //echo print_r($br->battle_log)."<br>";
+            //echo "";
 		}
-        $winRate = $wins/sizeof($result);
-        echo "<h2>Win Rate = ".round($winRate*100,1)."%</h2>";
+        echo "</div>";
+        
 		
 
     ?>

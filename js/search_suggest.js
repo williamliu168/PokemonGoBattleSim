@@ -18,7 +18,7 @@ function autoComplete() {
 			data: {keyword:keyword},
 			success:function(data){
 				$('#icon_suggest').show();
-				$('#icon_suggest').html(data);
+				$('#icon_suggest').html(data); 
 			}
 		});
 	} else {
