@@ -37,11 +37,11 @@
 
     <?php
         //Display Pokemon Image on the left
-        echo "<div class='col-xs-12 col-sm-6'><div class='well'><img src='./img/icon_static_png/$id.png' alt='pokemon_img'></div></div>";
         echo "<input type='hidden' name='id' value='$id'>";
+        echo "<div class='col-xs-10 col-sm-5 col-xs-offset-1 col-sm-offset-1'><div class='well'><img src='./img/icon_static_png/$id.png' alt='pokemon_img'></div></div>";
 
         //Display Pokemon Info and Customization on the right
-        echo "<div class='col-xs-12 col-sm-6'><div class='well'>";
+        echo "<div class='col-xs-10 col-sm-5 col-xs-offset-1 col-sm-offset-0'><div class='well'>";
         echo "<h2 class='pokemon_name'>$name";
         if ($type2) {
             echo "<img class='pokemon_type' src=./img/elements/$type1.png>";
@@ -102,7 +102,7 @@
 
             // 4. Advanced Customizations
             echo "<div class='row input-row'>";
-            echo "<button type='button' class='btn btn-info'>Show Advanced</button>";
+            //echo "<button type='button' class='btn btn-info'>Show Advanced</button>";
             echo "</div>";
 
 
