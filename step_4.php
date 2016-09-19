@@ -105,12 +105,11 @@
     
 
     <!-- Back and Next Floating Buttons -->
-    <?php echo "<a href='step_2.php?id=$id' id='back' class='btn nav-btn ready'>" ?>
+    <?php echo "<a href='step_3.php?id=$id&trainer_level=$trainer_level&qm=$qm&ss=$ss' id='back' class='btn nav-btn ready'>" ?>
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     </a>
-    <button id="next" class="btn nav-btn" type="submit">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    </button>
+
+    <a href='step_1.php' class='btn btn-primary ready' style='right: 15px; bottom: 15px; position: fixed;'>Play Again</a>
     </form>
 
 </html>
