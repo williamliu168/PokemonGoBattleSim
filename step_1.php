@@ -47,7 +47,7 @@
 	</nav>
 
 	<!-- Main Content -->
-	<div class="wrapper pokemon-wrapper animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left" data-animsition-out-duration="800">
+	<div class="wrapper pokemon-wrapper animsition" >
 	<div class="row no-margin">
 		<div class="col-md-6 col-md-offset-3">
 		    <div class="input-group">
@@ -65,8 +65,7 @@
 	  	</div>
 	</div>
 
-    <div id="icon_suggest">
-    </div>
+    <div id="icon_suggest"></div>
     
 	<?php
     /*

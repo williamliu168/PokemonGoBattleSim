@@ -6,15 +6,13 @@ $(document).ready(
 		var $nextBtn = $('#next');
 		$backBtn.hide();
 		$nextBtn.hide();
-
-	    $(".thumbnail").click(function(){
-	    	debugger;
+		$(".thumbnail").click(function(){
 	    	if ($(this).hasClass("selected")) {
 	    		//If the onclick pokemon is already selected, then unselect it
 	    		$(this).toggleClass("selected");
 	    		//Set Next Button to unready
-    			$nextBtn.removeClass("ready");
-    			$nextBtn.hide();
+				$nextBtn.removeClass("ready");
+				$nextBtn.hide();
 	    	} else {
 	    		//If the onclick pokemon is not currently selected, then unselect all pokemon and set the onlick pokemon to selected
 	    		$(".thumbnail").removeClass("selected");
@@ -27,6 +25,6 @@ $(document).ready(
 		    	var new_href = "step_2.php?id=" + $(this).attr("id");
 		        $nextBtn.attr("href", new_href);
 	    	}
-	    	
 	    });
+  
 });

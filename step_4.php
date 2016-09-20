@@ -32,7 +32,7 @@
     </nav>
         <!-- Main Content -->
     <form action="step_4.php" method="get">
-    <div class="wrapper pokemon-wrapper animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left" data-animsition-out-duration="800">
+    <div class="wrapper pokemon-wrapper animsition">
     <div class="row no-margin" >
 
     <?php
@@ -148,7 +148,8 @@
     
 
     <!-- Back and Next Floating Buttons -->
-    <?php echo "<a href='step_3.php?id=$id&trainer_level=$trainer_level&qm=$qm&ss=$ss' id='back' class='btn nav-btn ready'>" ?>
+    <?php echo "<a href='step_3.php?id=$id&trainer_level=$trainer_level&qm=$qm&ss=$ss' id='back' class='btn nav-btn ready'" ?>
+    data-animsition-in-class="fade-in-left" data-animsition-in-duration="1000" data-animsition-out-class="fade-out-right" data-animsition-out-duration="800">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     </a>
 

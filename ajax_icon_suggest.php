@@ -29,3 +29,17 @@ foreach ($list as $item) {
     }
 }
 ?>
+
+    
+    
+<script>
+    $(".thumbnail").mouseover(function(){
+        var id = this.id;
+        jQuery('img',this).attr("src", "./img/icon_anime_gif/"+id+".gif");
+    });
+    $(".thumbnail").mouseout(function(){
+        jQuery('img',this).attr("src", "./img/icon_static_ico/"+$(this).attr("id")+".ico");
+    });
+</script>
+    
+    

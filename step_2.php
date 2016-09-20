@@ -39,7 +39,7 @@
     ?>
     
     <form action="step_3.php" method="get">
-    <div class="wrapper pokemon-wrapper animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left" data-animsition-out-duration="800">
+    <div class="wrapper pokemon-wrapper animsition">
     <div class="row no-margin">
 
     <?php
@@ -135,7 +135,7 @@
     </div>
 
     <!-- Back and Next Floating Buttons -->
-    <a href="step_1.php" id="back" class="btn nav-btn ready animsition-link">
+    <a href="step_1.php" id="back" class="btn nav-btn ready animsition-link" data-animsition-in-class="fade-in-left" data-animsition-in-duration="1000" data-animsition-out-class="fade-out-right" data-animsition-out-duration="800">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     </a>
     <button id="next" class="btn nav-btn ready" type="submit">
