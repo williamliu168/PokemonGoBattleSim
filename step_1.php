@@ -23,13 +23,18 @@
 	<title> Pokemon Go Battle Simulator </title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	
     <script src="js/search_suggest.js"></script>
     <script src="js/step_1.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/custom.css" rel="stylesheet">
+
+    <!-- animsition.css -->
+    <link rel="stylesheet" href="css/animsition.min.css">
+    <!-- animsition.js -->
+    <script src="js/animsition.min.js"></script>
+    <script src="js/transition.js"></script>
 </head>
-<body>
+<body >
 
 	<!-- Header for the 4 steps -->
 	<nav class="navbar navbar-default navbar-fixed-top" id="header">
@@ -42,7 +47,7 @@
 	</nav>
 
 	<!-- Main Content -->
-	<div class="wrapper pokemon-wrapper">
+	<div class="wrapper pokemon-wrapper animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left" data-animsition-out-duration="800">
 	<div class="row no-margin">
 		<div class="col-md-6 col-md-offset-3">
 		    <div class="input-group">
@@ -92,10 +97,10 @@
     ?>
 
 	<!-- Back and Next Floating Buttons -->
-	<a id="back" class="btn nav-btn" type="submit">
+	<a id="back" class="btn nav-btn animsition-link">
 		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 	</button>
-	<a id="next" class="btn nav-btn" type="submit">
+	<a id="next" class="btn nav-btn">
 		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 	</button>
 

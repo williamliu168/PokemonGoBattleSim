@@ -5,7 +5,7 @@ $(document).ready(
 		var $backBtn = $('#back');
 		var $nextBtn = $('#next');
 		$backBtn.hide();
-		//$nextBtn.hide();
+		$nextBtn.hide();
 
 	    $(".thumbnail").click(function(){
 	    	debugger;
@@ -29,5 +29,4 @@ $(document).ready(
 	    	}
 	    	
 	    });
-	}
-);
+});

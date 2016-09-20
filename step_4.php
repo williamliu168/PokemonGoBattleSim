@@ -13,6 +13,12 @@
     <script src="js/step_4.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+
+    <!-- animsition.css -->
+    <link rel="stylesheet" href="css/animsition.min.css">
+    <!-- animsition.js -->
+    <script src="js/animsition.min.js"></script>
+    <script src="js/transition.js"></script>
 </head>
 <body>
     <!-- Header for the 4 steps -->
@@ -26,7 +32,7 @@
     </nav>
         <!-- Main Content -->
     <form action="step_4.php" method="get">
-    <div class="wrapper pokemon-wrapper">
+    <div class="wrapper pokemon-wrapper animsition" data-animsition-in-class="fade-in-right" data-animsition-in-duration="1000" data-animsition-out-class="fade-out-left" data-animsition-out-duration="800">
     <div class="row no-margin" >
 
     <?php

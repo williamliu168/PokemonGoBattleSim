@@ -25,7 +25,7 @@ foreach ($list as $item) {
         $height=80;
         echo '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><a class="thumbnail" id="'.$pokemon_id.'" href="step_2.php?id='.$pokemon_id.'">
         <img src="./img/icon_static_ico/'.$pokemon_id.'.ico" alt="pokemon_img"
-        width='.$width.' height='.$height.'><span class="pokemon_name card_text">'.$pokemon_name.'</span></a></div>';
+        width='.$width.' height='.$height.'><span class="pokemon_name">'.$pokemon_name.'</span></a></div>';
     }
 }
 ?>
