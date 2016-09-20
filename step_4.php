@@ -90,10 +90,10 @@
         has a ".round($winRate*100,1)."% chance to win against <strong class='pokemon_name' >".$host->data->idToName($opponent_id)."</strong></p>";
         if ($isGym)
         {
-            echo "<p>Mode: Gym</p>";
+            echo "<span class='label label-default mode'>Gym Mode</span>";
         }
         else {
-            echo "<p>Mode: PvP</p>";
+            echo "<span class='label label-default mode'>PvP Mode</span>";
         }
         
         
@@ -146,7 +146,7 @@
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     </a>
 
-    <a href='step_1.php' class='btn btn-primary ready' style='right: 15px; bottom: 15px; position: fixed;'>Restart</a>
+    <a href='step_1.php' class='btn btn-success btn-lg' id='play_again' style='right: 15px; bottom: 15px; position: fixed;'>Restart</a>
     </form>
 
 </html>

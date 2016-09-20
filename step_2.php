@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/step_2.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
@@ -68,12 +69,19 @@
 
             // 2. Quick Move Selector
             echo "<div class='row input-row'><label>Quick Moves</label><div class='btn-group' data-toggle='buttons'>";
-            foreach ($qm as $name) {
-                $name = ucwords($name);
-                echo "<label class='btn btn-default'>
-                    <input type='radio' name='qm' id='option2' value='$name' autocomplete='on'>$name
+            for ($i=0; $i<count($qm); $i++) {
+                $name = ucwords($qm[$i]);
+                $active = "";
+                $checked ="";
+                if ($i==0) {
+                    $active = "active";
+                    $checked = "checked";
+                }
+                echo "<label class='btn btn-default $active'>
+                    <input type='radio' name='qm' id='option2' value='$name' autocomplete='on' $checked>$name
                     </label>";
             }
+
             foreach ($oqm as $name) {
                 $name = ucwords($name);
                 echo "<label class='btn btn-default'>
@@ -85,10 +93,16 @@
 
             // 3. Special Move
             echo "<div class='row input-row'><label>Special Moves</label><div class='btn-group' data-toggle='buttons'>";
-            foreach($ss as $name) {
-                $name = ucwords($name);
-                echo "<label class='btn btn-default'>
-                    <input type='radio' name='ss' id='option2' value='$name'>$name
+
+            for ($i=0; $i<count($ss); $i++) {
+                $name = ucwords($ss[$i]);
+                $active = "";
+                if ($i==0) {
+                    $active = "active";
+                    $checked = "checked";
+                }
+                echo "<label class='btn btn-default $active'>
+                    <input type='radio' name='ss' id='option2' value='$name' autocomplete='on' $checked>$name
                     </label>";
             }
             foreach ($oss as $name)
@@ -118,7 +132,7 @@
     <a href="step_1.php" id="back" class="btn nav-btn ready">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     </a>
-    <button id="next" class="btn nav-btn" type="submit">
+    <button id="next" class="btn nav-btn ready" type="submit">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     </button>
     </form>

@@ -7,7 +7,7 @@ function autoComplete() {
 			type: 'POST',
 			data: {keyword:keyword},
 			success:function(data){
-				$('#text_suggest').show();
+				//$('#text_suggest').show();
 				$('#text_suggest').html(data);
 			}
 		});

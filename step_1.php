@@ -52,7 +52,7 @@
                 <script type="text/javascript"> autoComplete(); </script>
                 
                 <input type="text" class="form-control" placeholder="Search Pokemon" id="pokemon_name" onkeyup="autoComplete()" value="" autofocus>
-                <ul id="text_suggest"></ul>
+                <ul id="text_suggest" class="search-result-list"></ul>
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                 </span>

@@ -75,7 +75,7 @@
 
     <?php
     foreach($host->data->pokemon_stats as $row) {
-        echo '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><a class="thumbnail" id="'.$row['id'].'"><img src="./img/icon_static_ico/'.$row['id'].'.ico" alt="pokemon_img" width="80" height="80"></a></div>';
+        echo '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2"><a class="thumbnail" id="'.$row['id'].'"><img src="./img/icon_static_ico/'.$row['id'].'.ico" alt="pokemon_img" width="80" height="80"><span class="pokemon_name">'.$row['name'].'</span></a></div>';
     }
     ?>
     </div>
