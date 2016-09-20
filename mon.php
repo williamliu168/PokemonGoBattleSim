@@ -73,13 +73,13 @@ class Pokemon
         if ($this->action=='standby'){
             if(($this->fury+$this->ss->furyCost)>=0) // have enough fury for special move_uploaded_file
             {
-                $result->bLog( '[pokemon] '.$this->name.' start '.$this->ss->nameWithStab() );
+                $result->bLog( $this->name.' start '.$this->ss->nameWithStab() );
                 $this->action='ss';
                 $this->action_progress=0.0;
             }
             else
             {
-                $result->bLog( '[pokemon] '.$this->name.' start '.$this->qm->nameWithStab() );
+                $result->bLog( $this->name.' start '.$this->qm->nameWithStab() );
                 $this->action='qm';
                 $this->action_progress=0.0;
             }
@@ -100,7 +100,7 @@ class Pokemon
                 $damage = new Damage($this->cAtk,$this->qm->power,$this->qm->type,0.0,$this->qm->stab);
                 $oldFury = $this->fury;
                 $this->gainFury($this->qm->furyGain);
-                $result->bLog( '[pokemon] '.$this->name.' performed '.$this->qm->nameWithStab() );
+                $result->bLog( $this->name.' performed '.$this->qm->nameWithStab() );
 
 				if ($this->isGymMon)
 				{
@@ -121,7 +121,7 @@ class Pokemon
                 $oldFury = $this->fury;
                 $this->fury=$this->fury+$this->ss->furyCost;    // ss->furyCost is -ve
                 if ($this->fury<0){
-                    $dump.='[pokemon] [ERROR] Negative fury. '.$this->name.' performed '
+                    $dump.='[ERROR] Negative fury. '.$this->name.' performed '
                         .$this->ss->nameWithStab.' fury '.$oldFury.'->'.$this->fury.'<BR>';
                 }
                 
@@ -161,7 +161,7 @@ class Pokemon
         $this->hp-=$hpLoss;
         $this->gainFury($hpLoss/2);
 
-        $result->bLog( '[pokemon] '.$this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']' );
+        $result->bLog( $this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']' );
         
         $this->checkDeath();
         return $dump;

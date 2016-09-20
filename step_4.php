@@ -36,33 +36,14 @@
     <div class="row no-margin" >
 
     <?php
-        $id = $_GET["id"];
-        $trainer_level = $_GET["trainer_level"];
+        $trainer_level = $_SESSION['trainer_level'];
         $width=80;
         $height=80;
-
-        $qm = '';
-        if (!empty($_GET['qm']))
-        {
-            $qm = $_GET["qm"];
-        }
-
-        $ss = '';
-        if (!empty($_GET['ss']))
-        {
-            $ss = $_GET["ss"];
-        }
-
-        $opponent_id = '';
-        if (!empty($_GET['opponent_id']))
-        {
-            $opponent_id = $_GET["opponent_id"];
-        }
 
         $lv = ($trainer_level)*2;
         $attacker = new Pokemon($host->data,$id,$qm,$ss,$lv);
 		
-        $defender_allThis = $host->GenerateSpecie($host->data->idToName($opponent_id),$lv);
+        $defender_allThis = $host->GenerateSpecie($host->data->idToName($op_id),$lv);
 		
 		// this line calls for back-end calculations
         $result = $host->arena->oneVsSpecie($attacker,$defender_allThis,$isGym);
@@ -93,7 +74,7 @@
         echo "<div class='row input-row display'><label>Quick Move</label>$qm</div>";
         echo "<div class='row input-row display'><label>Special Moves</label>$ss</div>";
         echo "<p class='lead result text-center' >Your <strong class='pokemon_name'>$attacker->name</strong> 
-        has a ".round($winRate*100,1)."% chance to win against <strong class='pokemon_name' >".$host->data->idToName($opponent_id)."</strong></p>";
+        has a ".round($winRate*100,1)."% chance to win against <strong class='pokemon_name' >".$host->data->idToName($op_id)."</strong></p>";
         if ($isGym)
         {
             echo "<span class='label label-default mode'>Gym Mode</span>";
@@ -125,7 +106,7 @@
                     <br>".$br->a->hp."/".$br->a->maxHp.hpbar($br->a->hp,$br->a->maxHp)."<br>".$br->a->qm->name.", ".$br->a->ss->name."</div>
 
                     <div class='col-xs-6 text-center'>
-                    <img src='./img/icon_static_ico/$opponent_id.ico' class='$b_status'alt='pokemon_img' height=$height width=$width>
+                    <img src='./img/icon_static_ico/$op_id.ico' class='$b_status'alt='pokemon_img' height=$height width=$width>
                     <br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>".$br->b->qm->name.", ".$br->b->ss->name."</div>
                 </div>";
             
@@ -134,8 +115,13 @@
             //echo "<div>".$br->b->hp."/".$br->b->maxHp . "<br>" . hpbar($br->b->hp,$br->b->maxHp) . "</div>";
             //echo" $br->battle_title$br->battle_result </div>";
 
-            //echo print_r($br->battle_log)."<br>";
-            //echo "";
+            // echo print_r($br->battle_log)."<br>";
+            echo "<table>";
+            foreach($br->battle_log as $key => $value)
+            {
+                echo "<tr><th>$key</th><th>$value</th></tr>";
+            }
+            echo "</table>";
 		}
         echo "</div>";
         

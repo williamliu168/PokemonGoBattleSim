@@ -29,12 +29,6 @@
     </nav>
 
     <?php
-        $id = $_GET["id"];
-        if ($id==0)
-        {
-            echo 'No pokemon found, check spelling<br>';
-            exit();
-        }
         list($name,$type1,$type2,$bAtk,$bDef,$bSta)= $host->data->getBasicData($id);
     ?>
     
@@ -45,7 +39,7 @@
     <?php
         //Display Pokemon Image on the left
         echo "<input type='hidden' name='id' value='$id'>";
-        echo "<div class='col-xs-10 col-sm-5 col-xs-offset-1 col-sm-offset-1'><div class='well'><img src='./img/icon_static_png/$id.png' alt='pokemon_img'></div></div>";
+        echo "<div class='col-xs-10 col-sm-5 col-xs-offset-1 col-sm-offset-1'><div class='well'><img src='./img/icon_static_ico/$id.ico' alt='pokemon_img' height=$height width=$width></div></div>";
 
         //Display Pokemon Info and Customization on the right
         echo "<div class='col-xs-10 col-sm-5 col-xs-offset-1 col-sm-offset-0'><div class='well'>";
@@ -67,10 +61,6 @@
             // Start of Customization
             // 1. Trainer Level Selector
             list($qm,$oqm,$ss,$oss) = $host->data->getSkillData($id);
-            if (!isset($trainer_level))
-            {
-                $trainer_level = 40;
-            }
             echo "<div class='row input-row'><label>Trainer Level</label><input id='ex1' data-slider-id='ex1Slider' type='text' name ='trainer_level' data-slider-min='1' data-slider-max='40' data-slider-step='1' data-slider-value='$trainer_level'/></div>";
 
             // 2. Quick Move Selector
