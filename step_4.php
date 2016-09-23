@@ -71,10 +71,10 @@
             echo "<img class='pokemon_type' src=./img/elements/$attacker->type1.png>";
         }
         echo "</h2>";
-        echo "<div class='row input-row display'><label>Quick Move</label>$qm</div>";
-        echo "<div class='row input-row display'><label>Special Moves</label>$ss</div>";
+        echo "<div class='row input-row display'><label>Quick Move</label>".$attacker->qm->displayName."</div>";
+        echo "<div class='row input-row display'><label>Special Moves</label>".$attacker->ss->displayName."</div>";
         echo "<p class='lead result text-center' >Your <strong class='pokemon_name'>$attacker->name</strong> 
-        has a ".round($winRate*100,1)."% chance to win against <strong class='pokemon_name' >".$host->data->idToName($op_id)."</strong></p>";
+        has a ".round($winRate*100,1)."% expected win rate against a <strong class='pokemon_name' >".$host->data->idToName($op_id)."</strong></p>";
         if ($isGym)
         {
             echo "<span class='label label-default mode'>Gym Mode</span>";
