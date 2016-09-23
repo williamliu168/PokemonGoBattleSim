@@ -21,10 +21,13 @@ class Pokemon
         $this->id = $id;
 
         $this->getBasicData();
+        $this->name=ucwords($this->name);
 
         $this->qm = new Qm($this->data,strtolower($qm));
         $this->ss = new Ss($this->data,strtolower($ss));
         $this->setStab();
+        $this->qm->displayName = $this->qm->nameWithStab();
+        $this->ss->displayName = $this->ss->nameWithStab();
 
         $this->level = $level;
 
@@ -57,6 +60,7 @@ class Pokemon
         $this->fury = 0;
         
         # === statistics ===
+        $this->team = 0;
         $this->score = 0;
         $this->fights = 0;
         $this->win = array();
@@ -73,13 +77,17 @@ class Pokemon
         if ($this->action=='standby'){
             if(($this->fury+$this->ss->furyCost)>=0) // have enough fury for special move_uploaded_file
             {
-                $result->bLog( $this->name.' start '.$this->ss->nameWithStab() );
+                $line = $this->name.' start '.$this->ss->nameWithStab();
+                $source = $this->team;
+                $result->bLog( $line, $this->team );
                 $this->action='ss';
                 $this->action_progress=0.0;
             }
             else
             {
-                $result->bLog( $this->name.' start '.$this->qm->nameWithStab() );
+                $line = $this->name.' start '.$this->qm->nameWithStab();
+                $source = $this->team;
+                $result->bLog( $line, $this->team );
                 $this->action='qm';
                 $this->action_progress=0.0;
             }
@@ -100,7 +108,8 @@ class Pokemon
                 $damage = new Damage($this->cAtk,$this->qm->power,$this->qm->type,0.0,$this->qm->stab);
                 $oldFury = $this->fury;
                 $this->gainFury($this->qm->furyGain);
-                $result->bLog( $this->name.' performed '.$this->qm->nameWithStab() );
+                $line = $this->name.' performed '.$this->qm->nameWithStab();
+                $result->bLog( $line, $this->team );
 
 				if ($this->isGymMon)
 				{
@@ -161,7 +170,8 @@ class Pokemon
         $this->hp-=$hpLoss;
         $this->gainFury($hpLoss/2);
 
-        $result->bLog( $this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']' );
+        $line = $this->name.' -'.$hpLoss.'hp ['.$this->hp.'/'.$this->maxHp.']';
+        $result->bLog( $line, $this->team );
         
         $this->checkDeath();
         return $dump;

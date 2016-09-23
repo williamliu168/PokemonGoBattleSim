@@ -103,11 +103,11 @@
             echo "<div class='well'>
                     <div class='col-xs-6 text-center'>
                     <img src='./img/icon_static_ico/$id.ico' class='$a_status' alt='pokemon_img' height=$height width=$width>
-                    <br>".$br->a->hp."/".$br->a->maxHp.hpbar($br->a->hp,$br->a->maxHp)."<br>".$br->a->qm->name.", ".$br->a->ss->name."</div>
+                    <br>".$br->a->hp."/".$br->a->maxHp.hpbar($br->a->hp,$br->a->maxHp)."<br>".$br->a->qm->displayName.", ".$br->a->ss->displayName."</div>
 
                     <div class='col-xs-6 text-center'>
                     <img src='./img/icon_static_ico/$op_id.ico' class='$b_status'alt='pokemon_img' height=$height width=$width>
-                    <br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>".$br->b->qm->name.", ".$br->b->ss->name."</div>
+                    <br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>".$br->b->qm->displayName.", ".$br->b->ss->displayName."</div>
                 </div>";
             
 
@@ -116,10 +116,39 @@
             //echo" $br->battle_title$br->battle_result </div>";
 
             // echo print_r($br->battle_log)."<br>";
-            echo "<table>";
-            foreach($br->battle_log as $key => $value)
-            {
-                echo "<tr><th>$key</th><th>$value</th></tr>";
+            echo "<table border=1>";
+            echo "<tr><th></th><th>time(in ms)</th><th></th></tr>";
+            $ms = 0.0;
+            $tick = 50.0;
+
+            while ($ms<=100000.0) {
+                $str_ms=(string)$ms;
+                if (array_key_exists($str_ms,$br->battle_log))
+                {
+                    if (isset($br->battle_log[$str_ms]['attacker']))
+                    {
+                        foreach($br->battle_log[$str_ms]['attacker'] as $line)
+                        {
+                            $leftLine=$line.'<br>';
+                        }
+                    }
+                    else {
+                        $leftLine = "";
+                    }
+                    if (isset($br->battle_log[$str_ms]['defender']))
+                    {
+                        foreach($br->battle_log[$str_ms]['defender'] as $line)
+                        {
+                            $rightLine=$line.'<br>';
+                        }
+                        $rightLine = $br->battle_log[$str_ms]['defender'][0];
+                    }
+                    else {
+                        $rightLine="";
+                    }
+                    echo "<tr><td>$leftLine</td><td>$ms</td><td>$rightLine</td></tr>";
+                }
+                $ms+=$tick;
             }
             echo "</table>";
 		}

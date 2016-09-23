@@ -13,19 +13,26 @@ class BattleResult
     public function __construct($a,$b) {
         $this->a = $a;
         $this->b = $b;
+        $this->a->team='attacker';
+        $this->b->team='defender';
 
         $this->battle_log = array();
     }
 
-    public function bLog($line)
+    public function bLog($line, $source)
     {
-        $i = 0;
-        do {
-            $i++;
-            $index = $this->current_ms.'_'.$i;
-        } while ( array_key_exists($index,$this->battle_log) );
+        $ms = (string)$this->current_ms;
+        if(!isset($this->battle_log[$ms]))
+        {
+            $this->battle_log[$ms]=array();
+        }
 
-        $this->battle_log[$index] = $line;
+        if(!isset($this->battle_log[$ms][$source]))
+        {
+            $this->battle_log[$ms][$source]=array();
+        }
+        
+        array_push($this->battle_log[$ms][$source],$line);
     }
 
     public function recordResult($a,$b)
