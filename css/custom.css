@@ -186,4 +186,22 @@ body {
   top: 5px;
   right: 5px; }
 
+.well.center-align {
+  text-align: center; }
+
+.bt-log-btn {
+  margin-top: 10px; }
+
+.battle-log {
+  display: none;
+  margin-top: 15px;
+  background: #f0f0f0;
+  border-radius: 4px; }
+  .battle-log table {
+    margin-bottom: 0; }
+  .battle-log td, .battle-log th {
+    font-size: 10px; }
+  .battle-log td:nth-of-type(2), .battle-log th:nth-of-type(2) {
+    text-align: center; }
+
 /*# sourceMappingURL=custom.css.map */

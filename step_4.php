@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/step_4.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
@@ -57,7 +58,6 @@
         
         $winRate = $wins/sizeof($result);
 
-        //echo "<h2>Win Rate = ".round($winRate*100,1)."%</h2>";
 		// result is an array of BattleResult, see class BattleResult from battleResult.php
         echo "<div class='col-xs-5 col-xs-offset-1 well' style='position: fixed;'>
             <img src='./img/icon_static_ico/$id.ico' alt='pokemon_img' height=$height width=$width>";
@@ -85,9 +85,9 @@
         
         
         echo "</div>";
-        // echo "<div class='help-tip'><p>Insert tooltip here.</p></div>";
 
         echo "<div class='col-xs-5 col-xs-offset-6'>";
+
 		foreach($result as $br)
 		{
             $wins+=$br->a_win;
@@ -100,7 +100,8 @@
                 $b_status = "dead";
             }
 
-            echo "<div class='well'>
+            echo "<div class='well center-align'>
+
                     <div class='col-xs-6 text-center'>
                     <img src='./img/icon_static_ico/$id.ico' class='$a_status' alt='pokemon_img' height=$height width=$width>
                     <br>".$br->a->hp."/".$br->a->maxHp.hpbar($br->a->hp,$br->a->maxHp)."<br>".$br->a->qm->displayName.", ".$br->a->ss->displayName."</div>
@@ -108,53 +109,47 @@
                     <div class='col-xs-6 text-center'>
                     <img src='./img/icon_static_ico/$op_id.ico' class='$b_status'alt='pokemon_img' height=$height width=$width>
                     <br>".$br->b->hp."/".$br->b->maxHp .hpbar($br->b->hp,$br->b->maxHp)."<br>".$br->b->qm->displayName.", ".$br->b->ss->displayName."</div>
-                </div>";
-            
 
-            //echo "<div>".$br->a->hp."/".$br->a->maxHp . "<br>" . hpbar($br->a->hp,$br->a->maxHp) . "</div>";
-            //echo "<div>".$br->b->hp."/".$br->b->maxHp . "<br>" . hpbar($br->b->hp,$br->b->maxHp) . "</div>";
-            //echo" $br->battle_title$br->battle_result </div>";
+                    <button type='button' class='btn btn-info btn-xs bt-log-btn' data-toggle='collapse' data-target=#collapseExample' aria-expanded='false' aria-controls='collapseExample'>Show Battle Log</button>";
 
-            // echo print_r($br->battle_log)."<br>";
-            echo "<table border=1>";
-            echo "<tr><th></th><th>time(in ms)</th><th></th></tr>";
-            $ms = 0.0;
-            $tick = 50.0;
+                    echo "<div class='battle-log collapse'><table class='table table-condensed table-responsive'>";
+                    echo "<tr><th></th><th>time(in ms)</th><th></th></tr>";
+                    $ms = 0.0;
+                    $tick = 50.0;
 
-            while ($ms<=100000.0) {
-                $str_ms=(string)$ms;
-                if (array_key_exists($str_ms,$br->battle_log))
-                {
-                    if (isset($br->battle_log[$str_ms]['attacker']))
-                    {
-                        foreach($br->battle_log[$str_ms]['attacker'] as $line)
+                    while ($ms<=100000.0) {
+                        $str_ms=(string)$ms;
+                        if (array_key_exists($str_ms,$br->battle_log))
                         {
-                            $leftLine=$line.'<br>';
+                            if (isset($br->battle_log[$str_ms]['attacker']))
+                            {
+                                foreach($br->battle_log[$str_ms]['attacker'] as $line)
+                                {
+                                    $leftLine=$line.'<br>';
+                                }
+                            }
+                            else {
+                                $leftLine = "";
+                            }
+                            if (isset($br->battle_log[$str_ms]['defender']))
+                            {
+                                foreach($br->battle_log[$str_ms]['defender'] as $line)
+                                {
+                                    $rightLine=$line.'<br>';
+                                }
+                                $rightLine = $br->battle_log[$str_ms]['defender'][0];
+                            }
+                            else {
+                                $rightLine="";
+                            }
+                            echo "<tr><td>$leftLine</td><td>$ms</td><td>$rightLine</td></tr>";
                         }
+                        $ms+=$tick;
                     }
-                    else {
-                        $leftLine = "";
-                    }
-                    if (isset($br->battle_log[$str_ms]['defender']))
-                    {
-                        foreach($br->battle_log[$str_ms]['defender'] as $line)
-                        {
-                            $rightLine=$line.'<br>';
-                        }
-                        $rightLine = $br->battle_log[$str_ms]['defender'][0];
-                    }
-                    else {
-                        $rightLine="";
-                    }
-                    echo "<tr><td>$leftLine</td><td>$ms</td><td>$rightLine</td></tr>";
-                }
-                $ms+=$tick;
-            }
-            echo "</table>";
+                    echo "</table></div>";
+            echo "</div>";
 		}
         echo "</div>";
-        
-		
 
     ?>
     </div>

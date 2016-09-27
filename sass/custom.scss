@@ -249,3 +249,26 @@ body {
     top: 5px;
     right: 5px;
 }
+
+.well.center-align{
+	text-align: center;
+}
+.bt-log-btn {
+	margin-top: $u1;
+}
+
+.battle-log {
+	display: none;
+	margin-top: $u2;
+	background: $light-gray;
+	border-radius: 4px;
+	table {
+		margin-bottom: 0;
+	}
+	td, th{
+		font-size: $u1;
+	}
+	td:nth-of-type(2), th:nth-of-type(2) {
+		text-align: center;
+	}
+}

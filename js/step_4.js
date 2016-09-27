@@ -6,6 +6,16 @@ $(document).ready(
 		//$backBtn.hide();
 		$nextBtn.hide();
 
+		//Toggle Battle Log on Btn Click
+	  	$(".bt-log-btn").click(function(){
+	  		$show_text = "Show Battle Log";
+	  		if($(this).html() == $show_text) {
+	  			$(this).html("Hide Battle Log");
+	  		} else {
+	  			$(this).html($show_text);
+	  		}
+	  		$(this).next().slideToggle();
+	  	});
 	    $(".thumbnail").click(function(){
 	    	if ($(this).hasClass("selected")) {
 	    		//If the onclick pokemon is already selected, then unselect it
