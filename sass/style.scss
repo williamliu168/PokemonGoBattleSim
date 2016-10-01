@@ -1,0 +1,37 @@
+$light-gray: #f0f0f0;
+$dark-gray: #7C7C7C;
+$highlight-color: #0099EE;
+
+header {
+	background: url(../img/grass.jpg);
+    background-size: cover;
+}
+
+.copyright-block {
+	text-align: center;
+	color: white;
+}
+
+.highlight {
+	background: white;
+	padding: 0 5px;
+}
+
+.hero {
+	background: transparent;
+	> * {
+		text-align: center;
+	}
+}
+
+.cta-btns {
+	margin: 30px 0 70px;
+}
+
+body, footer {
+	background: darken($dark-gray, 30%);
+}
+
+footer {
+	margin: 30px 0 100px;
+}

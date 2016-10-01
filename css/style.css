@@ -1,0 +1,27 @@
+header {
+  background: url(../img/grass.jpg);
+  background-size: cover; }
+
+.copyright-block {
+  text-align: center;
+  color: white; }
+
+.highlight {
+  background: white;
+  padding: 0 5px; }
+
+.hero {
+  background: transparent; }
+  .hero > * {
+    text-align: center; }
+
+.cta-btns {
+  margin: 30px 0 70px; }
+
+body, footer {
+  background: #303030; }
+
+footer {
+  margin: 30px 0 100px; }
+
+/*# sourceMappingURL=style.css.map */
