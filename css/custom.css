@@ -1,0 +1,207 @@
+h2 {
+  margin: 10px 0 30px; }
+
+body {
+  background: #f0f0f0; }
+
+#header dl {
+  margin-top: 10px;
+  margin-bottom: 10px; }
+
+#header dl dt {
+  display: inline-block;
+  text-align: center;
+  color: #7C7C7C;
+  line-height: 30px; }
+  #header dl dt:before {
+    display: block;
+    background: #7C7C7C;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    line-height: 30px;
+    color: white;
+    margin: 0 auto; }
+  #header dl dt:after {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 5px;
+    background: #f0f0f0;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    z-index: -1; }
+  #header dl dt:last-of-type:after {
+    display: none; }
+  #header dl dt.selected:before {
+    background: #0099EE; }
+  #header dl dt.selected {
+    color: #0099EE; }
+
+#header dl dt[id="step-1"]:before {
+  content: "1"; }
+
+#header dl dt[id="step-2"]:before {
+  content: "2"; }
+
+#header dl dt[id="step-3"]:before {
+  content: "3"; }
+
+#header dl dt[id="step-4"]:before {
+  content: "4"; }
+
+.nav-btn {
+  position: fixed;
+  bottom: 15px;
+  background: #cacaca;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  padding: 0;
+  border: 0;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.5); }
+  .nav-btn > span {
+    line-height: 60px;
+    font-size: 30px;
+    top: 0;
+    color: white; }
+  .nav-btn.ready {
+    background: #0099EE !important; }
+  .nav-btn#back {
+    left: 15px; }
+  .nav-btn#next {
+    right: 15px; }
+
+.btn-default.active, .btn-default.focus, .btn-default.active.focus {
+  background: #0099EE;
+  color: white;
+  border-color: #0078bb; }
+  .btn-default.active:hover, .btn-default.focus:hover, .btn-default.active.focus:hover {
+    background: #008fdf;
+    border-color: #006eac;
+    color: white; }
+
+.btn#play_again {
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.5); }
+
+.pokemon-wrapper {
+  /*max-width: 960px;*/
+  margin: 0 auto;
+  margin-top: 100px; }
+
+.thumbnail {
+  background: #e8e8e8;
+  border: 3px solid #e8e8e8; }
+  .thumbnail:hover {
+    border: 3px solid #d7d7d7 !important; }
+  .thumbnail:active, .thumbnail.selected, .thumbnail.selected:hover {
+    border: 3px solid #0099EE !important; }
+
+.well {
+  min-height: 200px; }
+  .well > img {
+    margin: 50px auto;
+    display: block; }
+
+.pokemon_type, .label-default {
+  margin-left: 5px; }
+
+#ex1Slider .slider-selection {
+  background: #BABABA; }
+
+.input-row > label {
+  width: 100%;
+  color: #7C7C7C; }
+
+.input-group {
+  margin-bottom: 20px; }
+
+.no-margin {
+  margin: 0; }
+
+.input-row {
+  margin: 20px 0 0; }
+
+.panel-default {
+  margin: 0 15px 15px; }
+
+.input-row.display {
+  max-width: 250px;
+  margin: 0 auto; }
+  .input-row.display > label {
+    width: 45%;
+    padding-right: 10px;
+    border-right: 1px solid #e3e3e3;
+    margin-right: 10px;
+    text-align: right; }
+
+.hpbar {
+  margin: auto; }
+
+.result {
+  margin: 30px auto;
+  max-width: 400px; }
+
+.pokemon_name {
+  text-transform: capitalize; }
+
+.thumbnail > .pokemon_name {
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-top: 10px;
+  color: #7C7C7C; }
+.thumbnail:hover {
+  text-decoration: none !important; }
+
+.dead {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%); }
+
+.search-result-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
+
+.mode {
+  position: absolute;
+  top: 5px;
+  right: 5px; }
+
+.well.center-align {
+  text-align: center; }
+
+.bt-log-btn {
+  margin-top: 10px; }
+
+.battle-log {
+  display: none;
+  margin-top: 15px;
+  background: #f0f0f0;
+  border-radius: 4px; }
+  .battle-log table {
+    margin-bottom: 0; }
+  .battle-log td, .battle-log th {
+    font-size: 10px; }
+  .battle-log td:nth-of-type(2), .battle-log th:nth-of-type(2) {
+    text-align: center; }
+
+/*# sourceMappingURL=custom.css.map */

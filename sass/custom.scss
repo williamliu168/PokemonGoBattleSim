@@ -1,0 +1,274 @@
+$light-gray: #f0f0f0;
+$dark-gray: #7C7C7C;
+$highlight-color: #0099EE;
+
+$u1: 10px;
+$u2: 15px;
+
+h2 {
+	margin: $u1 0 3*$u1;
+}
+
+$bg-color: $light-gray;
+
+body {
+	background: $bg-color;
+}
+
+#header dl {
+    margin-top: $u1;
+    margin-bottom: $u1;
+}
+
+#header dl dt{
+	display: inline-block;
+	text-align: center;
+	color: $dark-gray;
+	line-height: 2*$u2;
+
+	&:before {
+		display: block;
+	    background: $dark-gray;
+	    width: 2*$u2;
+	    height: 2*$u2;
+	    border-radius: $u2;
+	    line-height: 2*$u2;
+	    color: white;
+	    margin: 0 auto;
+	}
+
+	&:after {
+	    content: " ";
+	    display: block;
+	    width: 100%;
+	    height: 5px;
+	    background: $light-gray;
+	    position: absolute;
+	    top: $u2;
+	    left: 50%;
+	    z-index: -1;
+	}
+	&:last-of-type:after {
+		display: none;
+	}
+
+	&.selected:before {
+		background: $highlight-color;
+	}
+	&.selected {
+		color: $highlight-color;
+	}
+}
+
+#header dl dt[id="step-1"]:before {
+	content: "1";
+}
+
+#header dl dt[id="step-2"]:before {
+	content: "2";
+}
+
+#header dl dt[id="step-3"]:before {
+	content: "3";
+}
+
+#header dl dt[id="step-4"]:before {
+	content: "4";
+}
+
+
+.nav-btn {
+	position: fixed;
+	bottom: 15px;
+	background: darken($light-gray,15%);
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+	padding: 0;
+    border: 0;
+    box-shadow: 1px 2px 8px rgba(black, 0.5);
+    > span {
+    	line-height: 60px;
+	    font-size: 30px;
+	    top: 0;
+	    color: white;
+    }
+    &.ready {
+    	background: $highlight-color !important;
+    }
+    &#back {
+		left: 15px;
+	}
+	&#next {
+		right: 15px;
+	}
+}	
+
+.btn-default{
+	&.active, &.focus, &.active.focus {
+		background: $highlight-color;
+		color: white;
+		border-color: darken($highlight-color, 10%);
+		&:hover {
+			background: darken($highlight-color, 3%);
+			border-color: darken($highlight-color, 13%);
+			color: white;
+		}
+	}
+}
+
+.btn#play_again{
+	box-shadow: 1px 2px 8px rgba(black, 0.5);
+}
+
+.pokemon-wrapper {
+	/*max-width: 960px;*/
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+.thumbnail {
+	background: darken($bg-color, 3%);
+	border: 3px solid darken($bg-color, 3%);
+	&:hover {
+		border: 3px solid darken($bg-color,10%) !important;
+	}
+	&:active, &.selected, &.selected:hover {
+		border: 3px solid $highlight-color !important;
+	}
+}
+
+.well {
+	min-height: 200px;
+	> img {
+		margin: 50px auto;
+		display: block;
+	}
+}
+
+.pokemon_type, .label-default{
+	margin-left: 5px;
+}
+
+#ex1Slider .slider-selection {
+	background: #BABABA;
+}
+
+.input-row >label {
+	width: 100%;
+	color: $dark-gray;
+}
+
+.input-group {
+	margin-bottom: 20px;
+}
+
+.no-margin {
+	margin: 0;
+}
+.input-row {
+	margin: 20px 0 0;
+}
+
+.panel-default {
+	margin: 0 $u2 $u2;
+}
+
+.input-row.display {
+	max-width: 250px;
+	margin: 0 auto;
+	> label {
+		width: 45%;
+		padding-right: $u1;
+		border-right: 1px solid darken($light-gray,5%);
+		margin-right: $u1;
+		text-align: right;
+	}
+}
+
+.hpbar {
+	margin: auto;
+}
+
+.result {
+	margin: 2*$u2 auto;
+	max-width: 400px;
+}
+
+.pokemon_name {
+	text-transform: capitalize;
+}
+
+.thumbnail {
+	> .pokemon_name {
+		text-align: center;
+	    width: 100%;
+	    display: block;
+	    margin-top: 10px;
+	    color: $dark-gray;
+	}
+	&:hover {
+		text-decoration: none !important;
+	}
+}
+
+
+.dead {
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+
+.search-result-list {
+	position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+	li {
+
+	}
+}
+
+.mode {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.well.center-align{
+	text-align: center;
+}
+.bt-log-btn {
+	margin-top: $u1;
+}
+
+.battle-log {
+	display: none;
+	margin-top: $u2;
+	background: $light-gray;
+	border-radius: 4px;
+	table {
+		margin-bottom: 0;
+	}
+	td, th{
+		font-size: $u1;
+	}
+	td:nth-of-type(2), th:nth-of-type(2) {
+		text-align: center;
+	}
+}
